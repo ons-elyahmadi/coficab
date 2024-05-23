@@ -1,0 +1,27 @@
+{
+    "id": "B405BC0F",
+    "path": "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/src/ARIMAEUR_HNL.R",
+    "project_path": "src/ARIMAEUR_HNL.R",
+    "type": "r_source",
+    "hash": "3361334777",
+    "contents": "",
+    "dirty": false,
+    "created": 1716216422179.0,
+    "source_on_save": false,
+    "relative_order": 14,
+    "properties": {
+        "tempName": "Untitled2",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "304,1",
+        "scrollLine": "293"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1716475371,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1716475371541,
+    "read_only": false,
+    "read_only_alternatives": []
+}

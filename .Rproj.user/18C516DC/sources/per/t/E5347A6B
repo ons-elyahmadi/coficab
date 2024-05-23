@@ -1,0 +1,26 @@
+{
+    "id": "E5347A6B",
+    "path": "C:/Users/21658/Downloads/Predicting_Metal_Cost_with_R-master/Predicting_Metal_Cost_with_R-master/src/model eval.R",
+    "project_path": "src/model eval.R",
+    "type": "r_source",
+    "hash": "2013135156",
+    "contents": "",
+    "dirty": false,
+    "created": 1710668959863.0,
+    "source_on_save": false,
+    "relative_order": 9,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "89,0",
+        "scrollLine": "80"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1710674572,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1710674572417,
+    "read_only": false,
+    "read_only_alternatives": []
+}

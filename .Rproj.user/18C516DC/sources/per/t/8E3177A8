@@ -1,0 +1,26 @@
+{
+    "id": "8E3177A8",
+    "path": "C:/Users/21658/Downloads/Predicting_Metal_Cost_with_R-master/Predicting_Metal_Cost_with_R-master/src/01_data_cleaning.R",
+    "project_path": "src/01_data_cleaning.R",
+    "type": "r_source",
+    "hash": "2149498284",
+    "contents": "",
+    "dirty": false,
+    "created": 1710638235987.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "24,0",
+        "scrollLine": "11"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1710667189,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1710667189986,
+    "read_only": false,
+    "read_only_alternatives": []
+}

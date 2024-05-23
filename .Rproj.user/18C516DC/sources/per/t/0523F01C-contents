@@ -1,0 +1,47 @@
+# Charger les bibliothèques nécessaires
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(reshape2) # for melt function
+library(ggthemes)
+
+# Charger les informations
+data <- read_csv("data/cleaned_data3.csv") # La commande read_csv est plus rapide, et elle analyse automatiquement la plupart des données
+data[c(2, 3, 4)] <- lapply(data[c(2, 3, 4)], as.numeric) # ces colonnes doivent être converties en numérique
+
+# Voir un résumé des données - min, quartiles, moyenne, médiane et max
+summary(data)
+
+# Examiner d'abord le graphique de séries chronologiques pour les deux variables d'intérêt : prix du cuivre et prix de l'or
+output_vars_melted <- melt(data[1:3], id = "date")
+ggplot(output_vars_melted, aes(x=date, y=value, col=variable)) + 
+      geom_line() +
+      ggtitle("Historique des prix du cuivre et de l'or") +
+      theme_stata()
+
+# Examiner les différences de prix
+price_dif <- data.frame(date = data$date, price_difference = data$copper_price - data$gold_price)
+
+ggplot(data = price_dif, aes(x = date, y = price_difference)) +
+      geom_area() +
+      ggtitle("Différences de coût") +
+      scale_x_date(date_breaks = "years" , date_labels = "%Y") +
+      labs(title = "Différences de coût",
+           subtitle = "Prix du cuivre - Prix de l'or",
+           x = "Année", y = "Prix ") +
+      theme_stata() +
+      theme(axis.text.x = element_text(angle=90))
+
+# Générer une série temporelle de toutes les variables
+all_vars_melted <- melt(data, id = "date")
+qplot(date, value, data = all_vars_melted, geom = "line", group = variable) +
+      facet_grid(variable ~ ., scale = "free_y") +
+      theme_bw() +
+      ggtitle("Séries chronologiques de toutes les variables")
+
+# Vous pouvez rapidement effectuer une EDA avec le package DataExplorer
+library(DataExplorer)
+plot_missing(data) # montrer les valeurs manquantes
+ 
+plot_correlation(data[1:4346, -1], type = 'all') # corrélation, sans les cinq dernières lignes de données manquantes et la date
+

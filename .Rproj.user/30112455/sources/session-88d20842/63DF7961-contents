@@ -1,0 +1,54 @@
+# Load necessary libraries
+library(forecast)
+library(tseries)
+library(ggplot2)
+library(fGarch)
+library(rugarch)
+library(FinTS)
+
+# Read the data
+data <- read.csv("data/cleanindataAlum.csv", header = TRUE)
+
+# Check stationarity
+adf.test(data$Alumnim...ton, alternative = "stationary")
+adf.test(data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel., alternative = "stationary")
+
+# Take differences for stationarity
+d.Alumnim...ton <- diff(data$Alumnim...ton)
+d.Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel. <- diff(data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)
+
+# Check stationarity of differenced series
+adf.test(d.Alumnim...ton, alternative = "stationary")
+adf.test(d.Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel., alternative = "stationary")
+
+# Création de la liste de modèles
+arch_model_01 <- ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(6, 4)),
+                            mean.model = list(armaOrder = c(6, 4), include.mean = TRUE),
+                            distribution.model = "norm")
+
+# Correcting the model list
+modelM <- list(
+  ugarchfit(spec = arch_model_01, data = data[, 3])
+)
+
+# Computing RMSE for each model
+rmse <- sapply(modelM, function(model) {
+  residuals <- residuals(model)
+  n <- length(residuals)
+  SSE <- sum(residuals^2)
+  MSE <- SSE / n
+  RMSE <- sqrt(MSE)
+  return(RMSE)
+})
+
+# Plotting RMSE
+ggplot(data.frame(Model = paste("Model", 1:1), RMSE = rmse), aes(x = Model, y = RMSE)) +
+  geom_line() +
+  geom_point() +
+  geom_text(aes(label = round(RMSE, 2)), vjust = 0.5) +
+  labs(title = "RMSE for ARCH Models",
+       x = "ARCH Model",
+       y = "RMSE") +
+  theme_minimal()
+
+# Continue with the rest of the code...

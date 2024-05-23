@@ -1,0 +1,68 @@
+# Chargement des bibliothèques
+library(tidyverse)
+library(forecast)
+library(randomForest)
+
+# Chargement des données
+data <- read_csv("data/cleaned_data3.csv")
+data[c(2, 3, 4)] <- lapply(data[c(2, 3, 4)], as.numeric) 
+
+# Définition des ensembles d'entraînement et de test
+train <- data [1302:4340,]
+test <- data[ 1:1301, ]
+
+################
+# 1. Régression linéaire simple, sans variables de pourcentage de changement
+################
+
+simple_LR_copper <- lm(copper_price ~ gold_price + oil_price, data = train)
+summary(simple_LR_copper)
+
+##################
+# 2. Prévision de séries temporelles - ARIMA
+##################
+
+# Ajustement du modèle ARIMA pour le cuivre
+fit_copper <- auto.arima(ts(data[1:4340, 2], start = c(2007, 2), end = c(2024, 3), frequency = 4), D = 1)
+
+# Prévision pour 16 périodes - quatre ans
+forecast_copper <- forecast(fit_copper, h = 16)
+
+# Affichage des prédictions ARIMA
+plot(forecast_copper, main = "Prévision ARIMA pour le cuivre")
+
+# Prédictions numériques - la moyenne des prédictions ARIMA
+ARIMA_copper_pred <- as.numeric(forecast_copper$mean)
+
+#################
+# 3. Prévision de séries temporelles - Réseau de neurones
+#################
+
+# Création de la série temporelle pour le cuivre
+copper_ts <- ts(data[1:4340, 2], start = c(2007, 2), end = c(2024, 3), frequency = 4) 
+
+# Prévision avec le réseau de neurones
+nn_forecast_copper <- forecast(nnetar(copper_ts), h=16)
+
+# Affichage des prédictions du réseau de neurones
+plot(nn_forecast_copper, main = "Prévision NN pour le cuivre")
+
+# Prédictions numériques - modèle de prévision NN
+NN_copper_pred <- data.frame(nn_forecast_copper)
+
+#################
+# 4. Arbres de décision - Forêt aléatoire - 600 arbres
+#################
+
+set.seed(1234567) # pour la reproductibilité
+
+# Modèle de forêt aléatoire pour le prix du cuivre
+RF_copper <- randomForest(copper_price ~ gold_price + oil_price,
+                          data = data, ntree = 600, subset =  1302:4340, mtry = 2, na.action = na.omit)
+
+# Affichage du modèle
+print(RF_copper)
+importance(RF_copper)
+
+# Sauvegarde des modèles
+save.image(file = "bin/models.RData")

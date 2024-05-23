@@ -1,0 +1,25 @@
+# Load necessary libraries
+library(dplyr)
+
+# Load data
+data <- read.csv("data/COPPERLME.csv")
+
+# Preview the data
+head(data)
+
+# Renommer les colonnes
+colnames(data) <- c("date", "copper_price", "gold_price", "oil_price")
+
+# Nettoyage des données
+
+# Convertir les dates au format Date
+data$date <- as.Date(data$date, format = "%d/%m/%Y")
+
+# Remplacer les virgules par des points dans les colonnes numériques
+data$copper_price <- as.numeric(gsub(",", ".", data$copper_price))
+data$gold_price <- as.numeric(gsub(",", ".", data$gold_price))
+data$oil_price <- as.numeric(gsub(",", ".", data$oil_price))
+
+# Sauvegarder les données nettoyées dans un nouveau fichier CSV
+write.csv(data, "data/cleaned_data3.csv", row.names = FALSE)
+
