@@ -13,7 +13,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 conn = pyodbc.connect(
     'DRIVER={SQL SERVER};'
     'SERVER=DESKTOP-OQ6BTAR;'
-    'DATABASE=COFICAB;'
+    'DATABASE=COFICABTN;'
     'Trusted_Connection=yes;'
 )
 
