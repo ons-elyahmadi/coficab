@@ -1,0 +1,70 @@
+<div class="user-management-container" style="padding: 20px; color: white;">
+  <mat-toolbar color="primary">
+    <span>User Management</span>
+  </mat-toolbar>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <mat-card class="mat-elevation-z4" style="background-color: rgb(240, 158, 6); color: white;">
+      {{ errorMessage }}
+    </mat-card>
+  </div>
+
+  <mat-card class="user-list mat-elevation-z4" style="margin-top: 20px; color: white;">
+    <h3>Users</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let user of users" style="color: white;" (click)="selectUser(user)">
+        <mat-icon matSuffix style="color: white;">person</mat-icon>
+        {{ user.email }} ({{ user.ROLE }})
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+
+  <mat-card class="user-form mat-elevation-z4" style="margin-top: 20px; color: white;">
+    <h3>{{ selectedUser ? 'Edit User' : 'Add New User' }}</h3>
+
+    <form (ngSubmit)="saveUser()">
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label style="color: white;">Email</mat-label>
+        <input matInput type="email" [(ngModel)]="selectedUser.email" name="email" required>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label style="color: white;">Password</mat-label>
+        <input matInput type="password" [(ngModel)]="selectedUser.password" name="password" required>
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label style="color: white;">Username</mat-label>
+        <input matInput type="text" [(ngModel)]="selectedUser.username" name="username" required>
+        <mat-icon matSuffix>account_circle</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label style="color: white;">Role</mat-label>
+        <mat-select [(ngModel)]="selectedUser.ROLE" name="role" required>
+          <mat-option  value="User">User</mat-option>
+          <mat-option value="Agent">Agent</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>security</mat-icon>
+      </mat-form-field>
+
+      <div class="button-group" style="display: flex; justify-content: space-between;">
+        <button mat-raised-button color="primary" type="submit">
+          <mat-icon>save</mat-icon> Save
+        </button>
+        <button mat-raised-button color="warn" type="button" *ngIf="selectedUser.id" (click)="clearForm()">
+          <mat-icon>cancel</mat-icon> Cancel
+        </button>
+      </div>
+    </form>
+  </mat-card>
+
+  <mat-card *ngIf="selectedUser && selectedUser.id" class="delete-user mat-elevation-z4" style="margin-top: 20px; color: white;">
+    <h3>Delete User</h3>
+    <button mat-raised-button color="warn" (click)="deleteUser(selectedUser.id)">
+      <mat-icon>delete</mat-icon> Delete
+    </button>
+  </mat-card>
+</div>

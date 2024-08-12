@@ -1,0 +1,16 @@
+.dashboard-container {
+  background: rgb(220,132,29);
+  background: linear-gradient(170deg, rgba(220,132,29,1) 0%, rgba(22,17,168,1) 68%, rgba(51,87,247,1) 100%);
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  iframe {
+    border: none;
+    
+    
+  }
+  

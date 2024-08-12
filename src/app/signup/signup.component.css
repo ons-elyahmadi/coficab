@@ -1,0 +1,86 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #02107c; /* Bleu sombre de l'arrière-plan */
+  }
+  
+  .signup-card {
+    max-width: 400px;
+    width: 100%;
+    padding: 2rem;
+    justify-content: center;
+    align-items: center;
+    margin-left: 3cm;
+    background: rgb(220,132,29);
+    background: linear-gradient(170deg, rgba(220,132,29,1) 0%, rgba(22,17,168,1) 68%, rgba(51,87,247,1) 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #ffffff; /* Texte blanc */
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    display: block;
+  margin-bottom: 1rem;
+    font-weight: bold;
+     /* Couleur des labels en blanc */
+  }
+  
+  input {
+    color: #ffffff;
+  }
+  
+  .role-container {
+    margin-bottom: 1rem;
+  }
+  
+  .role-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #ffffff; /* Couleur des labels en blanc */
+  }
+  .logo-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: -13cm;
+     
+    margin-top: -15cm;
+  }
+  
+  mat-radio-group {
+    display: flex;
+     
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  
+  button {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .title1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  .error-message {
+    color: #ff1744; /* Rouge pour le message d'erreur */
+    margin-top: 1rem;
+    text-align: center;
+  }
+  

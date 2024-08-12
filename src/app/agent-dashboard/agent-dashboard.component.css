@@ -1,0 +1,40 @@
+.navbar {
+    background-color:  #02107c; /* Couleur de fond de la barre de navigation */
+    padding: 10px 20px;
+  }
+  
+  .navbar ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar li {
+    margin: 0 15px;
+  }
+  
+  .navbar .logo-item {
+    margin-left: -1.5cm;
+    margin-top: -0.9cm;
+width: 2cm;
+height: 2cm;
+    margin-right: auto; /* Pousse les liens à droite */
+  }
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar a i {
+    margin-right: 8px;
+  }
+  
+  .navbar a:hover {
+    text-decoration: underline;
+  }
+  

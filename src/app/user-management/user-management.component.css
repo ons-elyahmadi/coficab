@@ -1,0 +1,22 @@
+.mat-toolbar.mat-primary {
+  background-color:  #02107c;
+   
+}
+
+.mat-elevation-z4 {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.mat-card {
+ 
+ 
+  background: rgb(220,132,29);
+  background: linear-gradient(170deg, rgba(220,132,29,1) 0%, rgba(22,17,168,1) 68%, rgba(51,87,247,1) 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #ffffff; /* Texte blanc */
+}
+
+.button-group {
+  margin-top: 20px;
+}

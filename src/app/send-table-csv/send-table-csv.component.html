@@ -1,0 +1,45 @@
+<div class="send-mail-container">
+  <mat-card class="email-card">
+    <mat-card-header class="mat-card-header-center">
+      <mat-card-title class="mat-card-title-center">
+        <mat-icon>email</mat-icon>
+        Send Email
+      </mat-card-title>
+    </mat-card-header>
+
+    <form (ngSubmit)="sendTableCsv()">
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label class="mat-label">
+          <mat-icon>table_chart</mat-icon>
+          Table
+        </mat-label>
+        <mat-select [(ngModel)]="selectedTable" name="selectedTable" required (selectionChange)="onTableChange()">
+          <mat-option *ngFor="let table of tables" [value]="table">{{ table }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label class="mat-label">
+          <mat-icon>person</mat-icon>
+          Recipient
+        </mat-label>
+        <input matInput type="email" id="recipient" [(ngModel)]="recipient" name="recipient" required class="mat-input-element">
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label class="mat-label">
+          <mat-icon>subject</mat-icon>
+          Subject
+        </mat-label>
+        <input matInput type="text" id="subject" [(ngModel)]="subject" name="subject" class="mat-input-element">
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" color="primary" class="mat-button-center">
+        <mat-icon>send</mat-icon>
+        Send Email
+      </button>
+
+    
+    </form>
+  </mat-card>
+</div>

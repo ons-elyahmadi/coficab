@@ -1,0 +1,26 @@
+<div class="chat-container">
+  
+  <mat-form-field appearance="fill" class="recipient-input">
+    <mat-label>Recipient</mat-label>
+    <mat-select [(ngModel)]="recipientEmail" (selectionChange)="loadMessages()">
+      <mat-option *ngFor="let user of users" [value]="user.email">
+        <mat-icon>person</mat-icon> {{ user.email }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="messages">
+    <div *ngFor="let message of messages" [class.sent]="message.sender_email === email" [class.received]="message.recipient_email == email">
+      <span>{{ message.message }}</span>
+      <div class="timestamp">{{ message.timestamp | date: 'short' }}</div>
+    </div>
+  </div>
+  <div class="input-container">
+    <mat-form-field appearance="fill" class="message-input">
+      <mat-label>Message</mat-label>
+      <input matInput [(ngModel)]="message" (keyup.enter)="sendMessage()">
+    </mat-form-field>
+    <button mat-icon-button color="primary" (click)="sendMessage()">
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</div>

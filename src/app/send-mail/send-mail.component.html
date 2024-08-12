@@ -1,0 +1,41 @@
+<div class="send-mail-container" style="padding: 20px; color: white;">
+  <mat-card class="email-card" style="background-color: #424242; color: white;">
+    <mat-card-header class="mat-card-header-center">
+      <mat-card-title class="mat-card-title-center">
+        <mat-icon>email</mat-icon>
+        Send Email
+      </mat-card-title>
+    </mat-card-header>
+
+    <form (ngSubmit)="sendMail()">
+      <mat-form-field class="form-field" appearance="fill" style="width: 100%;">
+        <mat-label style="color: white;">
+          <mat-icon>person</mat-icon>
+          Recipient
+        </mat-label>
+        <input matInput type="email" id="recipient" [(ngModel)]="recipient" name="recipient" required style="color: white;">
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill" style="width: 100%;">
+        <mat-label style="color: white;">
+          <mat-icon>subject</mat-icon>
+          Subject
+        </mat-label>
+        <input matInput type="text" id="subject" [(ngModel)]="subject" name="subject" required style="color: white;">
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill" style="width: 100%;">
+        <mat-label style="color: white;">
+          <mat-icon>message</mat-icon>
+          Body
+        </mat-label>
+        <textarea matInput id="body" [(ngModel)]="body" name="body" required style="color: white;"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" color="primary" class="mat-button-center">
+        <mat-icon>send</mat-icon>
+        Send Email
+      </button>
+    </form>
+  </mat-card>
+</div>

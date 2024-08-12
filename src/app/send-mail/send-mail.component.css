@@ -1,0 +1,91 @@
+.send-mail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color:   white ;
+  }
+  
+  .email-card {
+    width: 400px;
+    margin-top: -2cm;
+    padding: 20px;
+    background: rgb(220,132,29);
+    background: linear-gradient(170deg, rgba(220,132,29,1) 0%, rgba(22,17,168,1) 68%, rgba(51,87,247,1) 100%);
+   
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-field {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .success-message, .error-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .mat-card-header-center {
+    text-align: center;
+    margin-left: 3cm;
+  }
+  
+  .mat-card-title-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mat-button-center {
+    display: flex;
+    margin-left: 3.5cm;
+    align-items: center;
+    justify-content: center;
+  }
+  .send-mail-container {
+    padding: 20px;
+    color: white;
+  }
+  
+  .email-card {
+    background-color: #424242;
+    color: white;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+  }
+  
+  .mat-label {
+    color: white !important;
+  }
+  
+  .mat-input-element {
+    color: white !important;
+  }
+  
+  .snack-bar-success {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .snack-bar-error {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .mat-icon {
+    vertical-align: middle;
+  }
+  
+  .mat-button-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
