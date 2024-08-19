@@ -1,42 +1,173 @@
+/* Video Background Section */
+.elementor-section {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+  margin: 0;
+}
+
+.elementor-background-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  transform: scale(1.2); /* Zoom effect */
+  transition: transform 0.5s ease-in-out;
+}
+
+.elementor-background-video-embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.elementor-background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(62, 62, 252, 0.5); /* Blue tint */
+  z-index: 1;
+}
+
+.elementor-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1140px;
+  margin: auto;
+  padding: 0 15px;
+}
+
+.elementor-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.elementor-widget-wrap {
+  text-align: center;
+}
+
+.coficab-logo {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.elementor-heading-title {
+  font-size: 32px;
+  color: white;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.5s ease-in-out;
+}
+
+.elementor-widget-text-editor p {
+  font-size: 18px;
+  color: white;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.5s ease-in-out 0.1s;
+}
+
+.elementor-spacer-inner {
+  height: 20px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .navbar {
-    background-color:  #02107c; /* Couleur de fond de la barre de navigation */
-    padding: 10px 20px;
-    
+  background: linear-gradient(to right, rgba(2,16,124,1), rgba(0,0,0,0.8));
+  padding: 10px 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+/* Style pour les éléments de la liste */
+.navbar ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  margin: 0 15px;
+  transition: transform 0.3s ease;
+}
+
+.navbar li:hover {
+  transform: translateY(-3px);
+}
+
+/* Style pour l'image du logo */
+.navbar .logo-item {
+  margin-left: -1.5cm;
+  margin-top: -0.9cm;
+  width: 2cm;
+  height: 2cm;
+  margin-right: auto;
+}
+
+/* Style pour les liens de la barre de navigation */
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+/* Style pour les icônes des liens */
+.navbar a i {
+  margin-right: 8px;
+}
+
+/* Effet au survol des liens */
+.navbar a:hover {
+  color: #f0f0f0;
+  text-decoration: underline;
+}
+
+/* Animation d'apparition pour la barre de navigation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
-  .navbar ul {
-    display: flex;
-    align-items: center;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .navbar li {
-    margin: 0 15px;
-  }
-  
-  .navbar .logo-item {
-    margin-left: -1.5cm;
-    margin-top: -0.9cm;
-width: 2cm;
-height: 2cm;
-    margin-right: auto; /* Pousse les liens à droite */
-  }
-  
-  .navbar a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar a i {
-    margin-right: 8px;
-  }
-  
-  .navbar a:hover {
-    text-decoration: underline;
-  }
-  
+}
+
+.navbar {
+  animation: slideIn 0.5s ease-out;
+}

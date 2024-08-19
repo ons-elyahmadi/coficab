@@ -1,7 +1,7 @@
 // login.component.ts
 import { Component } from '@angular/core';
-import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
+import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -22,7 +22,8 @@ export class LoginComponent {
         response => {
           console.log(response);
           const ROLE = response.ROLE;
-          localStorage.setItem('currentUser', JSON.stringify(response));
+          localStorage.setItem('currentUser', JSON.stringify(response)); // Store user data in localStorage
+          localStorage.setItem('role', ROLE); // Store role separately if needed
           this.authService.setCurrentUser(this.email); // Set current user email
 
           if (ROLE === 'User') {
@@ -35,7 +36,7 @@ export class LoginComponent {
         },
         error => {
           console.error(error);
-          this.errorMessage = error.error.error;
+          this.errorMessage = error.error.message || 'An error occurred during login';
         }
       );
   }
