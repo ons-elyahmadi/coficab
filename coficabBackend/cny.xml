@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?><CompactData xmlns="http://www.SDMX.org/resources/SDMXML/schemas/v2_0/message" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.SDMX.org/resources/SDMXML/schemas/v2_0/message https://stats.ecb.europa.eu/stats/vocabulary/sdmx/2.0/SDMXMessage.xsd"><Header>
-<ID>EXR-HIST_2024-08-06</ID>
+<ID>EXR-HIST_2024-08-16</ID>
 <Test>false</Test>
-<Name xml:lang="en">Euro foreign exchange reference rates</Name><Prepared>2024-08-06T15:56:11</Prepared>
+<Name xml:lang="en">Euro foreign exchange reference rates</Name><Prepared>2024-08-16T15:56:33</Prepared>
 <Sender id="4F0">
 <Name xml:lang="en">European Central Bank</Name><Contact>
 <Department xml:lang="en">DG Statistics</Department>
@@ -9,7 +9,7 @@
 </Sender>
 <DataSetAgency>ECB</DataSetAgency>
 <DataSetID>ECB_EXR_WEB</DataSetID>
-<Extracted>2024-08-06T15:56:11</Extracted></Header>
+<Extracted>2024-08-16T15:56:33</Extracted></Header>
 <DataSet xmlns="http://www.ecb.europa.eu/vocabulary/stats/exr/1" xsi:schemaLocation="http://www.ecb.europa.eu/vocabulary/stats/exr/1 https://stats.ecb.europa.eu/stats/vocabulary/exr/1/2006-09-04/sdmx-compact.xsd">
 <Group CURRENCY="CNY" CURRENCY_DENOM="EUR" EXR_TYPE="SP00" EXR_SUFFIX="A" DECIMALS="4" UNIT="CNY" UNIT_MULT="0" TITLE_COMPL="ECB reference exchange rate, Chinese yuan renminbi/Euro, 2:15 pm (C.E.T.)" />
 <Series FREQ="D" CURRENCY="CNY" CURRENCY_DENOM="EUR" EXR_TYPE="SP00" EXR_SUFFIX="A" TIME_FORMAT="P1D" COLLECTION="A">
@@ -4969,5 +4969,13 @@
 <Obs TIME_PERIOD="2024-08-02" OBS_VALUE="7.8075" OBS_STATUS="A" OBS_CONF="F" />
 <Obs TIME_PERIOD="2024-08-05" OBS_VALUE="7.8046" OBS_STATUS="A" OBS_CONF="F" />
 <Obs TIME_PERIOD="2024-08-06" OBS_VALUE="7.8071" OBS_STATUS="A" OBS_CONF="F" />
+<Obs TIME_PERIOD="2024-08-07" OBS_VALUE="7.8425" OBS_STATUS="A" OBS_CONF="F" />
+<Obs TIME_PERIOD="2024-08-08" OBS_VALUE="7.8393" OBS_STATUS="A" OBS_CONF="F" />
+<Obs TIME_PERIOD="2024-08-09" OBS_VALUE="7.8280" OBS_STATUS="A" OBS_CONF="F" />
+<Obs TIME_PERIOD="2024-08-12" OBS_VALUE="7.8439" OBS_STATUS="A" OBS_CONF="F" />
+<Obs TIME_PERIOD="2024-08-13" OBS_VALUE="7.8301" OBS_STATUS="A" OBS_CONF="F" />
+<Obs TIME_PERIOD="2024-08-14" OBS_VALUE="7.8627" OBS_STATUS="A" OBS_CONF="F" />
+<Obs TIME_PERIOD="2024-08-15" OBS_VALUE="7.8816" OBS_STATUS="A" OBS_CONF="F" />
+<Obs TIME_PERIOD="2024-08-16" OBS_VALUE="7.8758" OBS_STATUS="A" OBS_CONF="F" />
 </Series></DataSet>
 </CompactData> 

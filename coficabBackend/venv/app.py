@@ -8,13 +8,26 @@ from email.mime.text import MIMEText
 import subprocess
 import csv
 import io
+from werkzeug.security import generate_password_hash, check_password_hash
+ 
+import jwt
+from functools import wraps
+import secrets
+import datetime
 
 app = Flask(__name__)
 CORS(app)
   # Generates a random 32-character hexadecimal string
+# Generate a secure random key for SECRET_KEY and JWT_SECRET_KEY
+secret_key = secrets.token_hex(32)  # 64 characters long
+jwt_secret_key = secrets.token_hex(32)  # 64 characters long
 
+# Setup SocketIO
 socketio = SocketIO(app, cors_allowed_origins="*")
-
+app.config['SECRET_KEY'] = secret_key
+app.config['JWT_SECRET_KEY'] = jwt_secret_key
+socketio = SocketIO(app, cors_allowed_origins="*")
+ 
 # Database connection
 conn = pyodbc.connect(
     'DRIVER={SQL SERVER};'
@@ -187,6 +200,7 @@ def run_rf_scripts():
             'C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/src/forcastUSD_HNL.R',
             'C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/src/forcastUSD_MKD.R',
             'C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/src/forcastUSD_MXN.R',
+            'C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/src/forcastEUR_MXN.R',
             'C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/src/forcastUSD_RON.R',
             'C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/src/forecastEUR_HNL.R',
             'C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/src/forecastEUR_RSD.R' 
@@ -312,25 +326,9 @@ def send_table_csv():
 
 
 
-@app.route('/api/login', methods=['POST'])
-def login():
-    data = request.get_json()
-    email = data['email']
-    password = data['password']
-    
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM users WHERE email = ? AND password = ?', (email, password))
-    user = cursor.fetchone()
-     
-    if user:
-        response = {
-            'email': user.email,
-            'ROLE': user.ROLE,  
-            'username': user.username
-        }
-        return jsonify(response), 200
-    else:
-        return jsonify({'message': 'Invalid credentials'}), 401
+ 
+
+
 
 @app.route('/api/users', methods=['GET'])
 def get_all_users():
@@ -432,26 +430,87 @@ def handle_send_message_event(data):
     cursor.close()
 
     emit('receive_message', data, room=recipient_email)
+ 
+ 
+
+# Decorator for token-required routes
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get('Authorization')
+        print(f"Token received: {token}")
+        if not token:
+            return jsonify({'message': 'Token is missing!'}), 403
+        try:
+            token = token.split(' ')[1]
+            print(f"Token after split: {token}")
+            data = jwt.decode(token, app.config['JWT_SECRET_KEY'], algorithms=["HS256"])
+            current_user = data['identity']
+        except Exception as e:
+            print(f"Token error: {e}")
+            return jsonify({'message': 'Token is invalid!'}), 403
+        return f(current_user, *args, **kwargs)
+    return decorated
+
+
+# Signup route
 @app.route('/api/signup', methods=['POST'])
 def signup():
     data = request.get_json()
-    email = data.get('email')
-    password = data.get('password')
-    role = data.get('ROLE')
-    username = data.get('username')
+    email = data['email']
+    password = data['password']
+    username = data['username']
+    role = data['ROLE']
 
+    hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+    
+    cursor = conn.cursor()
+    cursor.execute(
+        'INSERT INTO users (email, password, ROLE, username) VALUES (?, ?, ?, ?)', 
+        (email, hashed_password, role, username)
+    )
+    conn.commit()
+    return jsonify({'message': 'User registered successfully!'}), 201
+
+# Login route
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    email = data['email']
+    password = data['password']
+    
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM users WHERE email = ?', (email,))
-    existing_user = cursor.fetchone()
-    if existing_user:
-        cursor.close()
-        return jsonify({'error': 'Email already in use'}), 400
+    user = cursor.fetchone()
+    
+    if user and check_password_hash(user.password, password):
+        token = jwt.encode({
+            'identity': email,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+        }, app.config['JWT_SECRET_KEY'], algorithm='HS256')
+        
+        response = {
+            'token': token,
+            'email': user.email,
+            'ROLE': user.ROLE,
+            'username': user.username
+        }
+        return jsonify(response), 200
     else:
-        cursor.execute('INSERT INTO users (email, password, ROLE, username) VALUES (?, ?, ?, ?)', (email, password, role, username))
-        conn.commit()
-        cursor.close()
-        return jsonify({'message': 'User added successfully'}), 201
+        return jsonify({'message': 'Invalid credentials'}), 401
 
+@app.route('/api/logout', methods=['POST'])
+@token_required
+def logout(current_user):
+    return jsonify({'message': 'Logged out successfully!'}), 200
+
+# Example of a protected route
+@app.route('/api/protected', methods=['GET'])
+@token_required
+def protected_route(current_user):
+    return jsonify({'message': f'Welcome {current_user}! This is a protected route.'}), 200
+
+ 
 
 @socketio.on('join_room')
 def handle_join_room(data):
