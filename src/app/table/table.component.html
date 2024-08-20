@@ -5,7 +5,7 @@
   <h2>Select Tables</h2>
   
   <mat-form-field appearance="fill">
-    <mat-label>Select Tables</mat-label>
+    <mat-label style="color: white;">Select Tables</mat-label>
     <mat-select (selectionChange)="onTableSelect($event.value)" multiple aria-label="Select tables">
       <mat-option *ngFor="let table of tables" [value]="table">
         {{ table }}

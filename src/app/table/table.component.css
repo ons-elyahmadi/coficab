@@ -23,6 +23,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
   color: #ffffff; /* White text */
   transition: box-shadow 0.3s ease-in-out;
+ 
   max-width: 800px; /* Optional: set a max-width for the container */
   width: 100%; /* Ensures the container doesn't exceed the parent width */
 }
