@@ -1,6 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient  , HttpHeaders} from '@angular/common/http';
-import { Observable  , throwError} from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 export interface TableData {
   [key: string]: any;
@@ -10,7 +10,8 @@ export interface TableData {
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://127.0.0.1:5000/api';  // Update with your Flask server address
+   
+  private baseUrl = 'http://127.0.0.1:5000/api';    // Update with your Flask server address
   private token: string | null = localStorage.getItem('token'); // Initialize with stored token
 
   constructor(private http: HttpClient) {}
@@ -82,12 +83,16 @@ export class ApiService {
       params: { sender_email, recipient_email }
     });
   }
-  getTables(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.baseUrl}/tables`);
-  }
+   
   getUserRole(): string | null {
     return localStorage.getItem('userRole');
   }
+   
+
+  getTables(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/tables`);
+  }
+
   sendTableCsv(data: { table_name: string, recipient: string, subject?: string }): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/send_table_csv`, data);
   }
