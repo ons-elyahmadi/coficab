@@ -1,7 +1,7 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Full height of the viewport */
+  height: 90vh; /* Full height of the viewport */
   padding-top: 60px;
   background: 
     linear-gradient(
@@ -13,7 +13,7 @@
     url('/assets/logo/cof.jpg') no-repeat center center; /* Background image */
   background-size: cover; /* Cover the entire container */
   color: white; /* Keep text color white */
-  border-radius: 15px;
+ 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden; /* Prevent scrollbars on container */
 }

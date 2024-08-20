@@ -1,7 +1,7 @@
 <div class="chat-container">
   
   <mat-form-field appearance="fill" class="recipient-input">
-    <mat-label>Recipient</mat-label>
+    <mat-label style="color: white;">Recipient</mat-label>
     <mat-select [(ngModel)]="recipientEmail" (selectionChange)="loadMessages()">
       <mat-option *ngFor="let user of users" [value]="user.email">
         <mat-icon>person</mat-icon> {{ user.email }}
@@ -16,7 +16,7 @@
   </div>
   <div class="input-container">
     <mat-form-field appearance="fill" class="message-input">
-      <mat-label>Message</mat-label>
+      <mat-label style="color: white;">Message</mat-label>
       <input matInput [(ngModel)]="message" (keyup.enter)="sendMessage()">
     </mat-form-field>
     <button mat-icon-button color="primary" (click)="sendMessage()">

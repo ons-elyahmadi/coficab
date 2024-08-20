@@ -1,10 +1,14 @@
 :host {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #02107c; /* Bleu sombre de l'arrière-plan */
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(
+      rgba(22, 17, 168, 0.5),
+      rgba(51, 87, 247, 0.5)
+    ), url('/assets/logo/cof.jpg') no-repeat center center;
+  background-size: cover;
+}
   
   .signup-card {
     max-width: 400px;
