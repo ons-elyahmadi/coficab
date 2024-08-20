@@ -1,28 +1,32 @@
+.bac {
+  margin-top: 60px;
+  background: 
+    linear-gradient(
+      rgba(22, 17, 168, 0.6), 
+      rgba(51, 87, 247, 0.6)
+    ), 
+    url('/assets/logo/cof.jpg') no-repeat center center;
+  background-size: cover;
+  color: #fff; /* White text color */
+  min-height: 90vh; 
+  padding: 20px; /* To give some padding inside the bac */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centers the container inside the bac */
+}
+
 .container {
   padding: 20px;
   background: linear-gradient(170deg, rgba(220,132,29,0.8) 0%, rgba(22,17,168,0.8) 68%, rgba(51,87,247,0.8) 100%); /* Adjust opacity for gradient */
   border-radius: 12px; /* Rounded corners */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
   color: #ffffff; /* White text */
-  
-  margin-bottom: 20px;
   transition: box-shadow 0.3s ease-in-out;
+  max-width: 800px; /* Optional: set a max-width for the container */
+  width: 100%; /* Ensures the container doesn't exceed the parent width */
 }
-.bac{
-  margin-top: 70px;
-  background: 
-  linear-gradient(
-    rgba(22, 17, 168, 0.6), 
-    rgba(51, 87, 247, 0.6)
-  ), 
-  url('/assets/logo/cof.jpg') no-repeat center center;
-background-size: cover;
-color: #fff; /* White text color */
-min-height: 90vh; 
- 
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
-}
 
 h2 {
   margin-bottom: 20px;

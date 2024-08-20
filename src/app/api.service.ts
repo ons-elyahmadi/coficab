@@ -10,22 +10,60 @@ export interface TableData {
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://127.0.0.1:5000/api';  // Mettez ici l'adresse de votre serveur Flask
-  private token: string | null = null;
-  constructor(private http: HttpClient) { }
-  login(email: string, password: string): Observable<any> { 
+  private baseUrl = 'http://127.0.0.1:5000/api';  // Update with your Flask server address
+  private token: string | null = localStorage.getItem('token'); // Initialize with stored token
+
+  constructor(private http: HttpClient) {}
+
+  login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/login`, { email, password })
       .pipe(
         map(response => {
-          this.token = response.token;  // Stocker le token JWT
+          this.token = response.token;  // Store JWT token
           if (this.token) {
-            localStorage.setItem('token', this.token); // Stocke le token dans le localStorage
+            localStorage.setItem('token', this.token); // Store token in localStorage
           }
           return response;
         })
       );
-}
+  }
 
+  private getHeaders(): HttpHeaders {
+    if (!this.token) {
+      throw new Error('No token available');
+    }
+    return new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+  }
+
+  clearToken(): void {
+    this.token = null;
+  }
+
+  
+
+  logout(): Observable<any> {
+    const token = localStorage.getItem('token'); // Retrieve token
+    if (!token) {
+      return throwError('No token found'); // Handle case where token is not available
+    }
+    return this.http.post<any>(`${this.baseUrl}/logout`, {}, {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`  // Send token in header
+      })
+    }).pipe(
+      map(response => {
+        this.clearToken(); // Clear token after successful logout
+        localStorage.removeItem('token'); // Remove token from localStorage
+        return response;
+      })
+    );
+  }
+  
+
+   
+ 
  
   runRScript(): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/run-r-script`, {});
@@ -77,18 +115,7 @@ export class ApiService {
   updateUser(id: number, email: string, password: string, role: string, username: string): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/users/${id}`, { email, password, ROLE: role, username });
   }
-  private getHeaders(): HttpHeaders {
-    if (!this.token) {
-      throw new Error('No token available');
-    }
-    return new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`
-    });
-  }
-
-  clearToken(): void {
-    this.token = null;
-  }
+  
   deleteUser(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/users/${id}`);
   }
@@ -97,17 +124,7 @@ export class ApiService {
   getTableData(tableName: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/table-data/${tableName}`);
   }
-  logout(): Observable<any> {
-    const token = localStorage.getItem('token'); // Récupère le token
-    if (!token) {
-      return throwError('No token found'); // Handle case where token is not available
-    }
-    return this.http.post<any>(`${this.baseUrl}/logout`, {}, {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`  // Envoie le token dans le header
-      })
-    });
-  }
+   
   
 }
  
