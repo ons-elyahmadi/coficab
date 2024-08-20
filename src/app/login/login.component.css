@@ -13,13 +13,13 @@
     justify-content: center;
     align-items: center;
     margin-left: 3cm;
-    background: rgb(220,132,29);
-    background: linear-gradient(170deg, rgba(220,132,29,1) 0%, rgba(22,17,168,1) 68%, rgba(51,87,247,1) 100%);
-   
-     /* Bleu plus clair pour la carte */
-    border-radius: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: #ffffff; /* Texte blanc */
+    background: linear-gradient(170deg, rgba(220,132,29,0.8) 0%, rgba(22,17,168,0.8) 68%, rgba(51,87,247,0.8) 100%); /* Adjust opacity for gradient */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+    color: #ffffff; /* White text */
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease-in-out;
   }
   .title1 {
     text-align: center;

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import { ApiService } from '../api.service';
-import { AuthService } from '../auth.service';
+import { Router, NavigationEnd } from '@angular/router';
+import { AuthService } from '../auth.service'; 
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-agent-dashboard',
   templateUrl: './agent-dashboard.component.html',
   styleUrls: ['./agent-dashboard.component.css']
 })
-export class AgentDashboardComponent  implements OnInit {
+export class AgentDashboardComponent implements OnInit {
   showVideo: boolean = false; // Initialize with false to hide video by default
 
   constructor(
@@ -31,8 +31,8 @@ export class AgentDashboardComponent  implements OnInit {
   }
 
   checkVideoDisplay() {
-    // Show video only when URL is '/dashboard'
-    this.showVideo = this.router.url === '/dashboard';
+    // Show video only when URL is '/agent-dashboard'
+    this.showVideo = this.router.url === '/agent-dashboard';
   }
 
   logout() {

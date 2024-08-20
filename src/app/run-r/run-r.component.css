@@ -1,206 +1,113 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    margin: 0;
-    background-color: #f5f5f5;
-  }
-  
-  .roadmap-container {
-    position: relative;
-    width: 100%;
-    height: 90vh;
-    background: linear-gradient(170deg, rgba(220,132,29,1) 0%, rgba(22,17,168,1) 68%, rgba(51,87,247,1) 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-  }
-  
-  .roadmap-road {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    margin: 0;
-    background-color: #f5f5f5;
-  }
-  
-  .roadmap-container {
-    position: relative;
-    width: 100%;
-    height: 90vh;
-    background: linear-gradient(170deg, rgba(220,132,29,1) 0%, rgba(22,17,168,1) 68%, rgba(51,87,247,1) 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-  }
-  
-  .roadmap-road {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
-  
-  .roadmap-road path {
-    fill: none;
-    stroke: white;
-    stroke-width: 8;
-  }
-  
-  .roadmap-step {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-  }
-  
-  .step-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    position: relative;
-  }
-  
-  .step-number {
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    background-color: white;
-    color: #333;
-    border-radius: 50%;
-    line-height: 60px;
-    font-size: 26px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .step-number:hover {
-    background-color: rgba(220, 132, 29, 0.8);
-    transform: scale(1.1);
-  }
-  
-  .step-description {
-    font-size: 16px;
-    font-weight: 500;
-    color: white;
-    padding: 12px;
-    border-radius: 5px;
-    position: absolute;
-    width: 220px;
-    max-width: 300px;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.8);
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-  
-  .step-description.left {
-    left: -250px;
-  }
-  
-  .step-description.right {
-    right: -250px;
-  }
-  
-  .roadmap-step:hover .step-description {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .roadmap-road path {
-    
-    fill: none;
-    stroke: white;
-    stroke-width: 8;
-  }
-  
-  .roadmap-step {
-   
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-  }
-  
-  .step-content {
-    display: flex;
-    top:-0.7cm;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    position: relative;
-  }
-  
-  .step-number {
-    
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    background-color: white;
-    color: #333;
-    border-radius: 50%;
-    line-height: 60px;
-    font-size: 26px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .step-description {
-    
-    font-size: 16px;
-    font-weight: 500;
-    color: white;
-    padding: 12px;
-    border-radius: 5px;
-    position: absolute;
-    width: 220px;
-    max-width: 300px;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.8);
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-  
-  .step-description.left {
-    left: -250px;
-  }
-  
-  .step-description.right {
-    right: -250px;
-  }
-  
-  .roadmap-step:hover .step-description {
-    opacity: 1;
-    transform: translateY(0);
-  }
-   
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+  background-color: #f5f5f5;
+}
+
+.roadmap-container {
+  margin-top: 50px;
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  background: url('/assets/logo/cof.jpg') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(
+      rgba(22, 17, 168, 0.5),
+      rgba(51, 87, 247, 0.5)
+    ), url('/assets/logo/cof.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.roadmap-road {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.roadmap-road path {
+  fill: none;
+  stroke: white;
+  stroke-width: 8;
+}
+
+.roadmap-step {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.step-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.step-number {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  color: #333;
+  border-radius: 50%;
+  line-height: 60px;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.step-number:hover {
+  background-color: rgba(220, 132, 29, 0.8);
+  transform: scale(1.1);
+}
+
+.step-description {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  position: absolute;
+  width: 220px;
+  max-width: 300px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6); /* Adjusted background color */
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Softer shadow */
+}
+
+.step-description.left {
+  left: -250px;
+}
+
+.step-description.right {
+  right: -250px;
+}
+
+.roadmap-step:hover .step-description {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .roadmap-button {
   position: relative;
   display: flex;
@@ -215,26 +122,14 @@ body {
   font-size: 16px;
   cursor: pointer;
   overflow: hidden;
-  transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   text-align: center;
-  z-index: 1; /* Ensure text and icons stay on top */
+  z-index: 1;
 }
 
 .roadmap-button:hover {
   background-color: rgba(0, 0, 0, 0.5);
   transform: translateY(-2px);
-}
-
-.roadmap-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  background-color: transparent;
-  transition: width 0.3s ease, background-color 0.3s ease;
-  z-index: 0;
 }
 
 .roadmap-button.in-progress::before {
@@ -253,65 +148,18 @@ body {
 }
 
 .roadmap-button.success {
-  color: white;
-}
-
-.roadmap-button.success::before {
   background-color: green;
 }
 
 .roadmap-button.failed {
-  color: white;
-}
-
-.roadmap-button.failed::before {
   background-color: red;
 }
 
 .mat-icon {
   font-size: 24px;
-  z-index: 1; /* Ensure icons stay on top */
+  z-index: 1;
 }
-.roadmap-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    color: white; /* Ensures text and icons are always visible */
-    background-color: rgba(0, 0, 0, 0.3);
-    border: none;
-    border-radius: 5px;
-    padding: 12px 24px;
-    font-size: 16px;
-    cursor: pointer;
-    overflow: hidden;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    position: relative; /* Ensure positioning for pseudo-elements */
-  }
-  
-  .roadmap-button:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-    transform: translateY(-2px);
-  }
-  
-  .roadmap-button.in-progress {
-    background-color: green; /* Background color for in-progress */
-  }
-  
-  .roadmap-button.success {
-    background-color: green; /* Background color for success */
-  }
-  
-  .roadmap-button.failed {
-    background-color: red; /* Background color for failure */
-  }
-  
-  .mat-icon {
-    font-size: 24px;
-    z-index: 1; /* Ensure icons stay on top */
-  }
-  
-  .roadmap-button span {
-    z-index: 1; /* Ensure text stays on top */
-  }
-  
+
+.roadmap-button span {
+  z-index: 1;
+}

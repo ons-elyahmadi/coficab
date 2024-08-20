@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./user-management.component.css']
 })
 export class UserManagementComponent implements OnInit {
+  selected:boolean=true;
   
   users: any[] = [];
   selectedUser: any = {
@@ -31,6 +32,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   loadUsers(): void {
+    
     this.apiService.getUsers().subscribe(
       data => {
         this.users = data;
@@ -43,6 +45,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   selectUser(user: any): void {
+    this.selected=false;
     this.selectedUser = { ...user };
   }
 
@@ -100,6 +103,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   clearForm(): void {
+    this.selected=true;
     this.selectedUser = { email: '', password: '', ROLE: '', username: '' };
   }
 }
