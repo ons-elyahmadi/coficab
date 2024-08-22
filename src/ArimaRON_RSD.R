@@ -13,6 +13,45 @@ attach(data)
 # Check the data
 head(data)
 
+data$Date <- as.Date(data$Date)
+
+
+
+# Plot Official.Ask.LME against Dateoil
+plot(data$Date, data$Price, type="l", col="red",
+     xlab="Date", ylab="RON RSD",
+     main="Official RON RSD Time")
+# Supposons que data est déjà chargé et Dateoil est converti en classe Date
+
+# Ajouter une colonne pour l'année
+data$Year <- format(data$Date, "%Y")
+
+# Calculer la moyenne des prix pour chaque année
+
+
+mean_RONRSD_per_year <- aggregate(data$Price, 
+                                  by = list(data$Year), 
+                                  FUN = mean, na.rm = TRUE)
+colnames(mean_RONRSD_per_year) <- c("Year", "Mean_Official_RONRSD")
+
+# Afficher les moyennes par année
+
+print(mean_RONRSD_per_year)
+
+
+# Calculer la moyenne générale du prix officiel LME
+mean_official_ask_RONRSD <- mean(data$Price, na.rm = TRUE)
+
+# Afficher les moyennes générales
+
+print(paste("Moyenne générale du prix officiel RON RSD: ", mean_official_ask_RONRSD))
+
+library(urca)
+
+
+
+kpss_test_RONRSD <- ur.kpss(data$Price)
+summary(kpss_test_RONRSD)
 # Plot the variables
 plot(Price, main = "RON to RSD Exchange Rate", ylab = "Price", xlab = "Time")
 
@@ -117,7 +156,7 @@ likelihood <- sapply(models, function(model) {
 })
 
 # Create a data frame for log-likelihood
-likelihood_df <- data.frame(Model = paste("Model", 1:16), Likelihood = likelihood)
+likelihood_df <- data.frame(Model = paste("Model", 1:22), Likelihood = likelihood)
 
 # Plot log-likelihood
 ggplot(likelihood_df, aes(x = Model, y = Likelihood)) +
@@ -153,7 +192,7 @@ schwarz_criterion <- sapply(models, function(model) {
 })
 
 # Create a data frame for Schwarz criterion
-schwarz_criterion_df <- data.frame(Model = paste("Model", 1:16), Schwarz_Criterion = schwarz_criterion)
+schwarz_criterion_df <- data.frame(Model = paste("Model", 1:22), Schwarz_Criterion = schwarz_criterion)
 
 # Plot Schwarz criterion
 ggplot(schwarz_criterion_df, aes(x = Model, y = Schwarz_Criterion)) +
@@ -169,7 +208,7 @@ se_regression <- sapply(models, function(model) {
 })
 
 # Create a data frame for standard error of regression
-se_regression_df <- data.frame(Model = paste("Model", 1:16), SE_Regression = se_regression)
+se_regression_df <- data.frame(Model = paste("Model", 1:22), SE_Regression = se_regression)
 
 # Plot standard error of regression
 ggplot(se_regression_df, aes(x = Model, y = SE_Regression)) +
@@ -208,7 +247,7 @@ mse <- sapply(models, function(model) {
 })
 
 # Create a data frame for MSE
-mse_df <- data.frame(Model = paste("Model", 1:16), MSE = mse)
+mse_df <- data.frame(Model = paste("Model", 1:22), MSE = mse)
 
 # Plot MSE
 ggplot(mse_df, aes(x = Model, y = MSE)) +
@@ -219,7 +258,7 @@ ggplot(mse_df, aes(x = Model, y = MSE)) +
       theme_minimal()
 
 # Fit ARIMA with best model with exogenous variable
-fit <- Arima(data[,2], order = c(1, 2, 8))
+fit <- Arima(data[,2], order = c(2, 2, 10))
 
 # Adjust figure margins
 par(mar = c(1, 4, 4, 2) + 0.1)

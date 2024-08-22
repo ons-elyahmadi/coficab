@@ -55,6 +55,7 @@ total_missingLME <- sum(is.na(merged_data$Official.Ask.LME))
 
 # Afficher le nombre total de données manquantes
 print(total_missingLME)
+
 attach(merged_data)
 # Tracer des boîtes à moustaches pour chaque colonne
 boxplot(Official.Ask.LME)
@@ -204,4 +205,5 @@ which(imputed_data$Official.Ask.LME %in% boxplot(imputed_data$Official.Ask.LME)$
 which(imputed_data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel. %in% boxplot(imputed_data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)$out)
 # Interpolation linéaire pour remplacer les valeurs aberrantes
 view(imputed_data)
+
 write_csv(imputed_data, "data/cleaningdata.csv")

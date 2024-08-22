@@ -5,7 +5,7 @@ library(ggplot2)
 # Read the data
 data <- read.csv("dataexchanges/data_EUR_CNY.csv", header = TRUE)
 head(data)
-
+ 
 
 # Attach the data
 attach(data)
@@ -14,6 +14,46 @@ attach(data)
 
 
 head(data)
+
+data$Date <- as.Date(data$Date)
+
+
+
+# Plot Official.Ask.LME against Dateoil
+plot(data$Date, data$Price, type="l", col="red",
+     xlab="Date", ylab="EUR CNY",
+     main="Official EUR CNY Time")
+# Supposons que data est déjà chargé et Dateoil est converti en classe Date
+
+# Ajouter une colonne pour l'année
+data$Year <- format(data$Date, "%Y")
+
+# Calculer la moyenne des prix pour chaque année
+
+
+mean_EURCNY_per_year <- aggregate(data$Price, 
+                               by = list(data$Year), 
+                               FUN = mean, na.rm = TRUE)
+colnames(mean_EURCNY_per_year) <- c("Year", "Mean_Official_EURCNY")
+
+# Afficher les moyennes par année
+
+print(mean_EURCNY_per_year)
+
+
+# Calculer la moyenne générale du prix officiel LME
+mean_official_ask_EURCNY <- mean(data$Price, na.rm = TRUE)
+
+# Afficher les moyennes générales
+
+print(paste("Moyenne générale du prix officiel EUR CNY: ", mean_official_ask_EURCNY))
+
+library(urca)
+
+
+
+kpss_test_EURCNY <- ur.kpss(data$Price)
+summary(kpss_test_EURCNY)
 
 # Plot the variables
 plot(Price)
@@ -26,7 +66,7 @@ adf.test(Price, alternative = "stationary")
 acf(Price)
  
 # Take differences for stationarity
-d.Price <- diff(Price)
+d.Price <- diff(diff(Price))
  
 # Plot differenced variables
 plot(d.Price)
@@ -39,24 +79,27 @@ adf.test(d.Price, alternative = "stationary")
 acf(d.Price)
 pacf(d.Price)
 
-Arima(data[,2]  , order = c(0, 1, 0))
-Arima(data[,2] , order = c(0, 1, 1))
-Arima(data[,2]  , order = c(0, 1, 2))
-Arima(data[,2]  , order = c(0, 1, 3))
+Arima(data[,2]  , order = c(0, 2, 0))
+Arima(data[,2] , order = c(0, 2, 1))
+Arima(data[,2]  , order = c(0, 2, 2))
+Arima(data[,2]  , order = c(0, 2, 3))
+Arima(data[,2]  , order = c(0, 2, 4))
  
 # Fit ARIMA models
 models <- list(
-      Arima(data[,2]  , order = c(0, 1, 0)),
-      Arima(data[,2] , order = c(0, 1, 1)),
-      Arima(data[,2]  , order = c(0, 1, 2)),
-      Arima(data[,2]  , order = c(0, 1, 3))
+      Arima(data[,2]  , order = c(0, 2, 0)),
+      Arima(data[,2] , order = c(0, 2, 1)),
+      Arima(data[,2]  , order = c(0, 2, 2)),
+      Arima(data[,2]  , order = c(0, 2, 3)),
+      Arima(data[,2]  , order = c(0, 2, 4))
+      
 )
 
 # Calculate AIC for each model
 aic <- sapply(models, AIC)
 
 # Create a data frame for AIC
-aic_dfEUR_CNY <- data.frame(Model = paste("Model", 1:4), AIC = aic)
+aic_dfEUR_CNY <- data.frame(Model = paste("Model", 1:5), AIC = aic)
 
 # Plot AIC
 ggplot(aic_dfEUR_CNY, aes(x = Model, y = AIC)) +
@@ -71,7 +114,7 @@ ggplot(aic_dfEUR_CNY, aes(x = Model, y = AIC)) +
 bic <- sapply(models, BIC)
 
 # Create a data frame for BIC
-bic_dfEUR_CNY <- data.frame(Model = paste("Model", 1:4), BIC = bic)
+bic_dfEUR_CNY <- data.frame(Model = paste("Model", 1:5), BIC = bic)
 
 # Plot BIC
 ggplot(bic_dfEUR_CNY, aes(x = Model, y = BIC)) +
@@ -93,7 +136,7 @@ rmse <- sapply(models, function(model) {
 })
 
 # Create a data frame for RMSE
-rmse_dfEUR_CNY <- data.frame(Model = paste("Model", 1:4), RMSE = rmse)
+rmse_dfEUR_CNY <- data.frame(Model = paste("Model", 1:5), RMSE = rmse)
 
 # Plot RMSE
 ggplot(rmse_dfEUR_CNY, aes(x = Model, y = RMSE)) +
@@ -114,7 +157,7 @@ likelihood <- sapply(models, function(model) {
 })
 
 # Create a data frame for log-likelihood
-likelihood_dfEUR_CNY <- data.frame(Model = paste("Model", 1:4), Likelihood = likelihood)
+likelihood_dfEUR_CNY <- data.frame(Model = paste("Model", 1:5), Likelihood = likelihood)
 
 # Plot log-likelihood
 ggplot(likelihood_dfEUR_CNY, aes(x = Model, y = Likelihood)) +
@@ -134,7 +177,7 @@ r_squared <- sapply(models, function(model) {
       return(R_squared)
 })
 # Create a data frame for R-squared
-r_squared_dfEUR_CNY <- data.frame(Model = paste("Model", 1:4), R_squared = r_squared)
+r_squared_dfEUR_CNY <- data.frame(Model = paste("Model", 1:5), R_squared = r_squared)
 
 # Plot R-squared
 ggplot(r_squared_dfEUR_CNY, aes(x = Model, y = R_squared)) +
@@ -151,7 +194,7 @@ schwarz_criterion <- sapply(models, function(model) {
 })
 
 # Create a data frame for Schwarz criterion
-schwarz_criterion_dfEUR_CNY <- data.frame(Model = paste("Model", 1:4), Schwarz_Criterion = schwarz_criterion)
+schwarz_criterion_dfEUR_CNY <- data.frame(Model = paste("Model", 1:5), Schwarz_Criterion = schwarz_criterion)
 
 # Plot Schwarz criterion
 ggplot(schwarz_criterion_dfEUR_CNY, aes(x = Model, y = Schwarz_Criterion)) +
@@ -168,7 +211,7 @@ se_regression <- sapply(models, function(model) {
 })
 
 # Create a data frame for standard error of regression
-se_regression_dfEUR_CNY <- data.frame(Model = paste("Model", 1:4), SE_Regression = se_regression)
+se_regression_dfEUR_CNY <- data.frame(Model = paste("Model", 1:5), SE_Regression = se_regression)
 
 # Plot standard error of regression
 ggplot(se_regression_dfEUR_CNY, aes(x = Model, y = SE_Regression)) +
@@ -188,7 +231,7 @@ mae <- sapply(models, function(model) {
 })
 
 # Create a data frame for MAE
-mae_df <- data.frame(Model = paste("Model", 1:4), MAE = mae)
+mae_df <- data.frame(Model = paste("Model", 1:5), MAE = mae)
 
 # Plot MAE
 ggplot(mae_df, aes(x = Model, y = MAE)) +
@@ -209,7 +252,7 @@ mse <- sapply(models, function(model) {
 })
 
 # Create a data frame for MSE
-mse_df <- data.frame(Model = paste("Model", 1:4), MSE = mse)
+mse_df <- data.frame(Model = paste("Model", 1:5), MSE = mse)
 
 # Plot MSE
 ggplot(mse_df, aes(x = Model, y = MSE)) +
@@ -223,7 +266,7 @@ ggplot(mse_df, aes(x = Model, y = MSE)) +
 
 
 # Fit ARIMA with best  model with exogenous variable
-fit <-  Arima(data[,2]  , order = c(0, 1, 1))
+fit <-  Arima(data[,2]  , order = c(0, 2, 1))
 # Adjust figure margins
 par(mar = c(1, 4, 4, 2) + 0.1)
 

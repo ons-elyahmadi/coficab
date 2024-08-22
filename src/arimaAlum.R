@@ -15,64 +15,100 @@ attach(data)
 
 head(data)
 
-# Plot the variables
-plot(Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)
-plot(Alumnim...ton)
+ 
+plot(price_aluminium_LME)
+# Convert date to Date class
+data$date <- as.Date(data$date)
+
+ 
+
+# Plot Official.Ask.LME against date
+plot(data$date, data$price_aluminium_LME, type="l", col="red",
+     xlab="Date", ylab="Official Allum",
+     main="Official Ask Alum Over Time")
+# Supposons que data est déjà chargé et date est converti en classe Date
+
+# Ajouter une colonne pour l'année
+data$Year <- format(data$date, "%Y")
+
+# Calculer la moyenne des prix pour chaque année
+ 
+
+mean_alum_per_year <- aggregate(data$price_aluminium_LME, 
+                                 by = list(data$Year), 
+                                 FUN = mean, na.rm = TRUE)
+colnames(mean_alum_per_year) <- c("Year", "Mean_Official_alum")
+
+# Afficher les moyennes par année
+ 
+print(mean_alum_per_year)
+
+ 
+# Calculer la moyenne générale du prix officiel LME
+mean_official_ask_comex <- mean(data$price_aluminium_LME, na.rm = TRUE)
+
+# Afficher les moyennes générales
+ 
+print(paste("Moyenne générale du prix officiel alum: ", mean_official_ask_comex))
+
+library(urca)
+
+ 
+
+kpss_test_alum <- ur.kpss(data$price_aluminium_LME)
+summary(kpss_test_alum)
 
 # Check stationarity
-adf.test( Alumnim...ton, alternative = "stationary")
-adf.test(Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel., alternative = "stationary")
+adf.test( price_aluminium_LME, alternative = "stationary")
+ 
 # Compute ACF and PACF
-acf(Alumnim...ton)
-pacf(Alumnim...ton)
+acf(price_aluminium_LME)
+pacf(price_aluminium_LME)
 # Take differences for stationarity
-d.Alumnim...ton <- diff(Alumnim...ton)
-d.Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel. <- diff(Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)
-
-# Plot differenced variables
-plot(d.Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)
-plot(d.Alumnim...ton)
+d.price_aluminium_LME <- diff(diff(price_aluminium_LME))
+ 
+ 
+plot(d.price_aluminium_LME)
 
 # Check stationarity of differenced series
-adf.test(d.Alumnim...ton, alternative = "stationary")
-adf.test(d.Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel., alternative = "stationary")
-
+adf.test(d.price_aluminium_LME, alternative = "stationary")
+ 
 # Compute ACF and PACF
-acf(d.Alumnim...ton)
-pacf(d.Alumnim...ton)
+acf(d.price_aluminium_LME)
+pacf(d.price_aluminium_LME)
 
-Arima(data[,3] ,  xreg = data[, 2] , order = c(6, 1, 0))
-Arima(data[,3] ,  xreg = data[, 2], order = c(5, 1, 0))
-Arima(data[,3] ,  xreg = data[, 2], order = c(4, 1, 0))
-Arima(data[,3] ,  xreg = data[, 2], order = c(0, 1, 6))
-Arima(data[,3],  xreg =  data[, 2], order = c(0, 1, 5))
-Arima(data[,3],  xreg =data[, 2] , order = c(0, 1, 4))
-Arima(data[,3],  xreg =data[, 2] , order = c(6, 1, 4))
-Arima(data[,3] , xreg = data[, 2] , order = c(5, 1, 4))
-Arima(data[,3],  xreg = data[, 2] , order = c(4, 1, 4))
-Arima(data[,3],  xreg =data[, 2] , order = c(6, 1, 5))
-Arima(data[,3] , xreg = data[, 2] , order = c(5, 1, 5))
-Arima(data[,3],  xreg = data[, 2] , order = c(4, 1, 5))
-Arima(data[,3],  xreg =data[, 2] , order = c(6, 1, 6))
-Arima(data[,3] , xreg = data[, 2] , order = c(5, 1, 6))
-Arima(data[,3],  xreg = data[, 2] , order = c(4, 1, 6))
+Arima(data[,2]  , order = c(0, 2, 1))
+Arima(data[,2] , order = c(0, 2, 2))
+Arima(data[,2] , order = c(0, 2, 3))
+Arima(data[,2] , order = c(0, 2, 4))
+Arima(data[,2], order = c(0, 2, 5))
+Arima(data[,2] , order = c(0, 2, 6))
+Arima(data[,2] , order = c(0, 2, 7))
+Arima(data[,2] , order = c(1, 2, 0))
+Arima(data[,2] , order = c(1, 2, 1))
+Arima(data[,2] , order = c(1, 2, 2))
+Arima(data[,2] , order = c(1, 2, 3))
+Arima(data[,2] , order = c(1, 2, 4))
+Arima(data[,2] , order = c(1, 2, 5))
+Arima(data[,2] , order = c(1, 2, 6))
+Arima(data[,2] , order = c(1, 2, 7))
 # Fit ARIMA models
 models <- list(
-      Arima(data[,3] ,  xreg = data[, 2] , order = c(6, 1, 0)),
-      Arima(data[,3] ,  xreg = data[, 2], order = c(5, 1, 0)),
-      Arima(data[,3] ,  xreg = data[, 2], order = c(4, 1, 0)),
-      Arima(data[,3] ,  xreg = data[, 2], order = c(0, 1, 6)),
-      Arima(data[,3],  xreg =  data[, 2], order = c(0, 1, 5)),
-      Arima(data[,3],  xreg =data[, 2] , order = c(0, 1, 4)),
-      Arima(data[,3],  xreg =data[, 2] , order = c(6, 1, 4)),
-      Arima(data[,3] , xreg = data[, 2] , order = c(5, 1, 4)),
-      Arima(data[,3],  xreg = data[, 2] , order = c(4, 1, 4)),
-      Arima(data[,3],  xreg =data[, 2] , order = c(6, 1, 5)),
-      Arima(data[,3] , xreg = data[, 2] , order = c(5, 1, 5)),
-      Arima(data[,3],  xreg = data[, 2] , order = c(4, 1, 5)),
-      Arima(data[,3],  xreg =data[, 2] , order = c(6, 1, 6)),
-      Arima(data[,3] , xreg = data[, 2] , order = c(5, 1, 6)),
-      Arima(data[,3],  xreg = data[, 2] , order = c(4, 1, 6))
+      Arima(data[,2]  , order = c(0, 2, 1)),
+      Arima(data[,2] , order = c(0, 2, 2)),
+      Arima(data[,2] , order = c(0, 2, 3)),
+      Arima(data[,2] , order = c(0, 2, 4)),
+      Arima(data[,2], order = c(0, 2, 5)),
+      Arima(data[,2] , order = c(0, 2, 6)),
+      Arima(data[,2] , order = c(0, 2, 7)),
+      Arima(data[,2] , order = c(1, 2, 0)),
+      Arima(data[,2] , order = c(1, 2, 1)),
+      Arima(data[,2] , order = c(1, 2, 2)),
+      Arima(data[,2] , order = c(1, 2, 3)),
+      Arima(data[,2] , order = c(1, 2, 4)),
+      Arima(data[,2] , order = c(1, 2, 5)),
+      Arima(data[,2] , order = c(1, 2, 6)),
+      Arima(data[,2] , order = c(1, 2, 7))
 )
 
 # Calculate AIC for each model
@@ -152,7 +188,7 @@ ggplot(likelihood_df, aes(x = Model, y = Likelihood)) +
 r_squared <- sapply(models, function(model) {
       residuals <- residuals(model)
       SSE <- sum(residuals^2)
-      SST <- sum((data[,3] - mean(data[,3]))^2)
+      SST <- sum((data[,2] - mean(data[,2]))^2)
       R_squared <- 1 - SSE / SST
       return(R_squared)
 })
@@ -247,7 +283,7 @@ ggplot(mse_df, aes(x = Model, y = MSE)) +
 
 
 # Fit ARIMA with best  model with exogenous variable
-fit <- Arima(data[,3] , xreg = data[, 2] ,order = c(6, 1, 4) )
+fit <- Arima(data[,2] ,order = c(1, 2, 7) )
 # Adjust figure margins
 par(mar = c(1, 4, 4, 2) + 0.1)
 
@@ -302,4 +338,5 @@ cat("Mean Absolute Percentage Error (MAPE):", mape, "%\n")
 
 
  
+
 

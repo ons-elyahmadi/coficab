@@ -22,6 +22,60 @@ ggplot(data, aes(x = Dateoil, y = CopperSHMET)) +
       geom_line() +
       labs(x = "Dateoil", y = "Prix du Cuivre (SHMET)", title = "Prix du Cuivre (SHMET) en fonction de la date du pétrole")
 
+
+# Plot the variables
+plot(Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)
+plot(Official.Ask.LME)
+ 
+
+# Plot Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel. against Dateoil
+plot(data$Dateoil, data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel., type="l", col="blue",
+     xlab="Date", ylab="WTI Spot Price (Dollars per Barrel)",
+     main="WTI Spot Price Over Time")
+
+# Plot Official.Ask.LME against Dateoil
+plot(data$Dateoil, data$CopperSHMET, type="l", col="red",
+     xlab="Date", ylab="Official CopperSHMET",
+     main="Official Ask SHMET Over Time")
+# Supposons que data est déjà chargé et Dateoil est converti en classe Date
+
+# Ajouter une colonne pour l'année
+data$Year <- format(data$Dateoil, "%Y")
+
+# Calculer la moyenne des prix pour chaque année
+mean_wti_per_year <- aggregate(data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel., 
+                               by = list(data$Year), 
+                               FUN = mean, na.rm = TRUE)
+colnames(mean_wti_per_year) <- c("Year", "Mean_WTI_Spot_Price")
+
+mean_shmet_per_year <- aggregate(data$CopperSHMET, 
+                               by = list(data$Year), 
+                               FUN = mean, na.rm = TRUE)
+colnames(mean_shmet_per_year) <- c("Year", "Mean_Official_SHMET")
+
+# Afficher les moyennes par année
+print(mean_wti_per_year)
+print(mean_shmet_per_year)
+
+# Calculer la moyenne générale du prix au comptant WTI
+mean_wti_spot_price <- mean(data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel., na.rm = TRUE)
+
+# Calculer la moyenne générale du prix officiel LME
+mean_official_ask_shmet <- mean(data$CopperSHMET, na.rm = TRUE)
+
+# Afficher les moyennes générales
+print(paste("Moyenne générale du prix au comptant WTI: ", mean_wti_spot_price))
+print(paste("Moyenne générale du prix officiel SHMET: ", mean_official_ask_shmet))
+# Installer et charger le package urca pour le test KPSS
+
+library(urca)
+
+# Exécuter le test KPSS sur les séries temporelles
+kpss_test_wti <- ur.kpss(data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)
+summary(kpss_test_wti)
+
+kpss_test_shmet <- ur.kpss(data$CopperSHMET)
+summary(kpss_test_shmet)
 # Plot the variables
 plot(Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)
 plot(CopperSHMET)
@@ -58,14 +112,14 @@ Arima(data[,3] , xreg = data[, 2] , order = c(1, 1, 2))
 Arima(data[,3],  xreg = data[, 2] , order = c(2, 1, 2))
 # Fit ARIMA models
 models <- list(
-      Arima(data[,3],  xreg = data[,2], order = c(1, 1, 0)),
-      Arima(data[,3],  xreg = data[,2], order = c(2, 1, 0)),
-      Arima(data[,3],  xreg = data[,2], order = c(1, 1, 1)),
-      Arima(data[,3],  xreg = data[,2], order = c(0, 1, 1)),
-      Arima(data[,3], xreg = data[,2], order = c(0, 1, 2)),
-      Arima(data[,3], xreg = data[,2], order = c(2, 1, 1)),
-      Arima(data[,3],  xreg = data[,2], order = c(1, 1, 2)),
-      Arima(data[,3],  xreg = data[,2], order = c(2, 1, 2))
+      Arima(data[,3],  xreg = data[,2], order = c(1, 1, 6)),
+      Arima(data[,3],  xreg = data[,2], order = c(0, 1, 6)),
+      Arima(data[,3],  xreg = data[,2], order = c(0, 1, 9)),
+      Arima(data[,3],  xreg = data[,2], order = c(0, 1, 8)),
+      Arima(data[,3], xreg = data[,2], order = c(0, 1, 7)),
+      Arima(data[,3], xreg = data[,2], order = c(1, 1, 7)),
+      Arima(data[,3],  xreg = data[,2], order = c(1, 1, 9)),
+      Arima(data[,3],  xreg = data[,2], order = c(1, 1, 8))
 )
 
 # Calculate AIC for each model
@@ -239,7 +293,7 @@ ggplot(mse_df, aes(x = Model, y = MSE)) +
 
 
 # Fit ARIMA with best  model with exogenous variable
-fit <-  Arima(data[,3] , xreg = data[, 2] , order = c(0, 1, 2))
+fit <-    Arima(data[,3],  xreg = data[,2], order = c(1, 1, 9))
 # Adjust figure margins
 par(mar = c(1, 4, 4, 2) + 0.1)
 
@@ -267,7 +321,7 @@ daActuel_values <- as.numeric(gsub(",", ".",daActuel$Shmet))
 print(daActuel_values)
 
 # Plot actual values
-plot(daActuel_values, type = "l", col = "blue", xlab = "Time", ylab = "Price", main = "Actual Copper Prices VS forcasted value", ylim = c(65000, 75000))
+plot(daActuel_values, type = "l", col = "blue", xlab = "Time", ylab = "Price", main = "Actual Copper Prices VS forcasted value", ylim = c(55000, 85000))
 
 # Add the forecasted values to the plot
 lines(daforcasted[,2], col = "red")

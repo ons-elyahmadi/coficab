@@ -18,6 +18,57 @@ head(data)
 # Plot the variables
 plot(Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)
 plot(Official.Ask.LME)
+# Convert Dateoil to Date class
+data$Dateoil <- as.Date(data$Dateoil)
+
+# Plot Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel. against Dateoil
+plot(data$Dateoil, data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel., type="l", col="blue",
+     xlab="Date", ylab="WTI Spot Price (Dollars per Barrel)",
+     main="WTI Spot Price Over Time")
+
+# Plot Official.Ask.LME against Dateoil
+plot(data$Dateoil, data$Official.Ask.LME, type="l", col="red",
+     xlab="Date", ylab="Official Ask LME",
+     main="Official Ask LME Over Time")
+# Supposons que data est déjà chargé et Dateoil est converti en classe Date
+
+# Ajouter une colonne pour l'année
+data$Year <- format(data$Dateoil, "%Y")
+
+# Calculer la moyenne des prix pour chaque année
+mean_wti_per_year <- aggregate(data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel., 
+                               by = list(data$Year), 
+                               FUN = mean, na.rm = TRUE)
+colnames(mean_wti_per_year) <- c("Year", "Mean_WTI_Spot_Price")
+
+mean_lme_per_year <- aggregate(data$Official.Ask.LME, 
+                               by = list(data$Year), 
+                               FUN = mean, na.rm = TRUE)
+colnames(mean_lme_per_year) <- c("Year", "Mean_Official_Ask_LME")
+
+# Afficher les moyennes par année
+print(mean_wti_per_year)
+print(mean_lme_per_year)
+
+# Calculer la moyenne générale du prix au comptant WTI
+mean_wti_spot_price <- mean(data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel., na.rm = TRUE)
+
+# Calculer la moyenne générale du prix officiel LME
+mean_official_ask_lme <- mean(data$Official.Ask.LME, na.rm = TRUE)
+
+# Afficher les moyennes générales
+print(paste("Moyenne générale du prix au comptant WTI: ", mean_wti_spot_price))
+print(paste("Moyenne générale du prix officiel LME: ", mean_official_ask_lme))
+# Installer et charger le package urca pour le test KPSS
+ 
+library(urca)
+
+# Exécuter le test KPSS sur les séries temporelles
+kpss_test_wti <- ur.kpss(data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)
+summary(kpss_test_wti)
+
+kpss_test_lme <- ur.kpss(data$Official.Ask.LME)
+summary(kpss_test_lme)
 
 # Check stationarity
 adf.test(Official.Ask.LME, alternative = "stationary")
@@ -258,7 +309,7 @@ print(daActuel)
 daActuel_values <- as.numeric(gsub(",", ".",daActuel$price))
 
 # Plot actual values
-plot(daActuel_values, type = "l", col = "blue", xlab = "Time", ylab = "Price", main = "Actual Copper Prices VS Forecasted Value", ylim = c(7000, 10000))
+plot(daActuel_values, type = "l", col = "blue", xlab = "Time", ylab = "Price", main = "Actual Copper Prices VS Forecasted Value", ylim = c(6000, 10000))
 
 # Add the forecasted values to the plot
 lines(daforcasted[,2], col = "red")
@@ -266,79 +317,4 @@ lines(daforcasted[,2], col = "red")
 # Add legend with smaller text
 legend("bottomright", legend = c("Actual", "Forecast"), col = c("blue", "red"), lty = 1, cex = 0.8)
 
-
-
-library(ggplot2)
-
-# Read the actual data
-
-
-# Calculate the Mean Absolute Error (MAE) and Mean Squared Error (MSE)
-mae <- mean(abs(forecast$mean -  daActuel_values))
-mse <- mean((forecast$mean -  daActuel_values)^2)
-
-# Print MAE and MSE
-cat("Mean Absolute Error (MAE):", mae, "\n")
-cat("Mean Squared Error (MSE):", mse, "\n")
-# Calculate Root Mean Squared Error (RMSE)
-rmse <- sqrt(mean((forecast$mean -  daActuel_values)^2))
-# Calculate Mean Absolute Percentage Error (MAPE)
-mape <- mean(abs((forecast$mean -  daActuel_values) / daActuel_values)) * 100
-# Print RMSE, MAPE, and Theil's U Statistic
-cat("Root Mean Squared Error (RMSE):", rmse, "\n")
-cat("Mean Absolute Percentage Error (MAPE):", mape, "%\n")
-plot(forecast, main ="ARIMA Forecast for Copper") 
-# Read the data
-daActuel <- read.csv("data/dataActuel.csv", header = TRUE)
-print(daActuel)
-
-daActuel_values <- as.numeric(gsub(",", ".",daActuel$price))
-print(daActuel$price)
-# Extract forecasted mean values
-forecast_values <- forecast$mean
-print(forecast_values)
-# Calculate sum of squared errors (SSE)
-##SSE <- sum((daActuel_values - forecast_values)^2)
-
-# Calculate total sum of squares (SST)
-##SST <- sum((daActuel_values - mean(daActuel_values))^2)
-
-# Calculate R-squared
-##R_squared <- 1 - SSE / SST
-
-# Print R-squared
-##print(R_squared)
-# Calculate squared errors
-squared_errors <- (daActuel$price - forecast_values)^2
-
-# Calculate mean squared error
-MSE <- mean(squared_errors)
-
-# Calculate RMSE
-RMSE <- sqrt(MSE)
-
-# Print RMSE
-
-print(RMSE)
-# Convert the 'Date' column to a date format
-daActuel$Date <- as.Date(daActuel$Date)
-
-# Determine the maximum date in the 'Date' column
-max_date <- max(daActuel$Date)
-
-# Create an index of dates for the forecasted values starting from the day after the maximum date in 'daActuel'
-forecast_index <- seq.Date(max_date + 1, length.out = length(forecast_values), by = "day")
-# Convert the forecasted values to a time series with the specified index
-forecast_ts <- ts(forecast_values, start = min(forecast_index), frequency = 365)
-
-# Plot actual and forecasted values
-plot(daActuel$Date, daActuel$price, type = "l", col = "blue", xlab = "Time", ylab = "Value", main = "Actual vs Forecasted Values")
-lines(forecast_index, forecast_values, col = "red")
-legend("topright", legend = c("Actual", "Forecasted"), col = c("blue", "red"), lty = 1)
-
-plot(daActuel$price, type = "l", col = "blue", xlab = "Time", ylab = "Value", main = "Actual vs Forecasted Values")
-lines(forecast_values, col = "red")
-legend("topright", legend = c("Actual", "Forecasted"), col = c("blue", "red"), lty = 1)
-data_actual <-  read.csv("data/dataActuel.csv", header = TRUE, sep = ",")
-head(data_actual)
-
+ 

@@ -9,8 +9,8 @@ library(reshape2) # for melt function
 library(ggthemes)
 library(infotheo) 
 # Charger les données
-data_oil <-  read.csv("data/oil.csv", header = TRUE, sep = ";")
-data_COMEX <-  read.csv("data/COMEX.csv", header = TRUE, sep = ";")
+data_oil <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/data/oil.csv", header = TRUE, sep = ";")
+data_COMEX <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/data/COMEX.csv", header = TRUE, sep = ";")
 head(data_oil)
 head(data_COMEX)
 # Convertir les colonnes de dates en format Date
@@ -22,11 +22,13 @@ head(data_oil)
 head(data_COMEX)
 # Fusionner les deux ensembles de données
 merged_data <- merge(data_oil, data_COMEX , by.x = "Dateoil", by.y = "DATE", all = TRUE)
-
+head(merged_data)
+merged_data <- merged_data[order(merged_data$Dateoil), ]
+head(merged_data)
 # Compléter les dates manquantes
 #merged_data_complete <- merged_data %>%
 #      complete(DateOIL = seq(min(DateOIL), max(DateOIL), by = "day"))
-write_csv(merged_data, "data/dataclCOMEX.csv")
+write_csv(merged_data, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/data/dataclCOMEX.csv")
 
 # Afficher les données complètes
 print(merged_data)
@@ -177,31 +179,34 @@ which(merged_data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel. %in% boxpl
 library(mice)
 
 # Assuming merged_data is your dataset
-# Step 1: Impute missing values using mice
+
+# Function to identify and replace outliers
+replace_outliers <- function(data, variables) {
+      for (variable in variables) {
+            outlier_indices <- which(data[[variable]] %in% boxplot(data[[variable]], plot = FALSE)$out)
+            data[[variable]][outlier_indices] <- NA
+      }
+      return(data)
+}
+
+# Impute missing values initially
 imputed_data <- complete(mice(merged_data))
 
-# Step 2: Identify aberrant values using boxplot or any other method for each variable of interest
+# Variables of interest
 variables_of_interest <- c("COMEX", "Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.") # Add more variables as needed
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data[[variable]] %in% boxplot(imputed_data[[variable]])$out)
+
+# Loop to replace outliers 3 times
+for (i in 1:3) {
+      imputed_data <- replace_outliers(imputed_data, variables_of_interest)
+      imputed_data <- complete(mice(imputed_data))
 }
 
-# Step 3: Replace aberrant values with NA for each variable
-for (variable in variables_of_interest) {
-      imputed_data[[variable]][outlier_indices[[variable]]] <- NA
-}
-
-# Step 4: Re-run the imputation process
-imputed_data <- complete(mice(imputed_data))
-
-# Step 5: Evaluate the results
+# Evaluate the results
 summary(imputed_data)
-
 
 
 which(imputed_data$COMEX %in% boxplot(imputed_data$COMEX)$out)
 which(imputed_data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel. %in% boxplot(imputed_data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)$out)
 # Interpolation linéaire pour remplacer les valeurs aberrantes
 view(imputed_data)
-write_csv(imputed_data, "data/cleaningdataCopperCOMEX.csv")
+write_csv(imputed_data, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/data/cleaningdataCopperCOMEX.csv")

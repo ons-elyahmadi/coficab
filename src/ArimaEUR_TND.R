@@ -13,6 +13,45 @@ attach(data)
 # Check the data
 head(data)
 
+data$Date <- as.Date(data$Date)
+
+
+
+# Plot Official.Ask.LME against Dateoil
+plot(data$Date, data$Price, type="l", col="red",
+     xlab="Date", ylab="EUR TND",
+     main="Official EUR TND Time")
+# Supposons que data est déjà chargé et Dateoil est converti en classe Date
+
+# Ajouter une colonne pour l'année
+data$Year <- format(data$Date, "%Y")
+
+# Calculer la moyenne des prix pour chaque année
+
+
+mean_EURTND_per_year <- aggregate(data$Price, 
+                                  by = list(data$Year), 
+                                  FUN = mean, na.rm = TRUE)
+colnames(mean_EURTND_per_year) <- c("Year", "Mean_Official_EURTND")
+
+# Afficher les moyennes par année
+
+print(mean_EURTND_per_year)
+
+
+# Calculer la moyenne générale du prix officiel LME
+mean_official_ask_EURTND <- mean(data$Price, na.rm = TRUE)
+
+# Afficher les moyennes générales
+
+print(paste("Moyenne générale du prix officiel EUR TND: ", mean_official_ask_EURTND))
+
+library(urca)
+
+
+
+kpss_test_EURTND <- ur.kpss(data$Price)
+summary(kpss_test_EURTND)
 # Plot the variables
 plot(Price, main = "EUR to TND Exchange Rate", ylab = "Price", xlab = "Time")
 

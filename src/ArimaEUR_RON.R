@@ -13,6 +13,45 @@ attach(data)
 # Check the data
 head(data)
 
+data$Date <- as.Date(data$Date)
+
+
+
+# Plot Official.Ask.LME against Dateoil
+plot(data$Date, data$Price, type="l", col="red",
+     xlab="Date", ylab="EUR RON",
+     main="Official AUR RON Time")
+# Supposons que data est déjà chargé et Dateoil est converti en classe Date
+
+# Ajouter une colonne pour l'année
+data$Year <- format(data$Date, "%Y")
+
+# Calculer la moyenne des prix pour chaque année
+
+
+mean_EURRON_per_year <- aggregate(data$Price, 
+                                  by = list(data$Year), 
+                                  FUN = mean, na.rm = TRUE)
+colnames(mean_EURRON_per_year) <- c("Year", "Mean_Official_EURRON")
+
+# Afficher les moyennes par année
+
+print(mean_EURRON_per_year)
+
+
+# Calculer la moyenne générale du prix officiel LME
+mean_official_ask_EURRON <- mean(data$Price, na.rm = TRUE)
+
+# Afficher les moyennes générales
+
+print(paste("Moyenne générale du prix officiel EUR RON: ", mean_official_ask_EURRON))
+
+library(urca)
+
+
+
+kpss_test_EURRON <- ur.kpss(data$Price)
+summary(kpss_test_EURRON)
 # Plot the variables
 plot(Price, main = "EUR to RON Exchange Rate", ylab = "Price", xlab = "Time")
 
@@ -68,7 +107,7 @@ models <- list(
 aic <- sapply(models, AIC)
 
 # Create a data frame for AIC
-aic_df <- data.frame(Model = paste("Model", 1:16), AIC = aic)
+aic_df <- data.frame(Model = paste("Model", 1:22), AIC = aic)
 
 # Plot AIC
 ggplot(aic_df, aes(x = Model, y = AIC)) +

@@ -9,8 +9,8 @@ library(reshape2) # for melt function
 library(ggthemes)
 library(infotheo) 
 # Charger les données
-data_oil <-  read.csv("data/oil.csv", header = TRUE, sep = ";")
-data_shmet <-  read.csv("data/SHMET.csv", header = TRUE, sep = ";")
+data_oil <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/data/oil.csv", header = TRUE, sep = ";")
+data_shmet <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/data/SHMET.csv", header = TRUE, sep = ";")
 head(data_oil)
 head(data_shmet)
 # Convertir les colonnes de dates en format Date
@@ -22,11 +22,13 @@ head(data_oil)
 head(data_shmet)
 # Fusionner les deux ensembles de données
 merged_data <- merge(data_oil, data_shmet , by.x = "Dateoil", by.y = "Date", all = TRUE)
-
+head(merged_data)
+merged_data <- merged_data[order(merged_data$Dateoil), ]
+head(merged_data)
 # Compléter les dates manquantes
 #merged_data_complete <- merged_data %>%
 #      complete(DateOIL = seq(min(DateOIL), max(DateOIL), by = "day"))
-write_csv(merged_data, "data/dataclshmet.csv")
+write_csv(merged_data, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/data/dataclshmet.csv")
 
 # Afficher les données complètes
 print(merged_data)
@@ -173,29 +175,40 @@ which(merged_data$CopperSHMET %in% boxplot(CopperSHMET)$out)
 which(merged_data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel. %in% boxplot(merged_data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)$out)
 # Interpolation linéaire pour remplacer les valeurs aberrantes
 # Assuming merged_data is your dataset
-
 library(mice)
 
 # Assuming merged_data is your dataset
 # Step 1: Impute missing values using mice
 imputed_data <- complete(mice(merged_data))
 
-# Step 2: Identify aberrant values using boxplot or any other method for each variable of interest
+# Define the variables of interest
 variables_of_interest <- c("CopperSHMET", "Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.") # Add more variables as needed
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data[[variable]] %in% boxplot(imputed_data[[variable]])$out)
+
+# Function to identify and replace outliers
+replace_outliers <- function(data, variables) {
+      for (variable in variables) {
+            # Check if the variable exists in the data
+            if (variable %in% colnames(data)) {
+                  # Identify outliers using boxplot
+                  boxplot_stats <- boxplot(data[[variable]], plot = FALSE)
+                  outlier_indices <- which(data[[variable]] %in% boxplot_stats$out)
+                  
+                  # Replace outliers with NA
+                  data[[variable]][outlier_indices] <- NA
+            } else {
+                  warning(paste("Variable", variable, "is not in the dataset."))
+            }
+      }
+      return(data)
 }
 
-# Step 3: Replace aberrant values with NA for each variable
-for (variable in variables_of_interest) {
-      imputed_data[[variable]][outlier_indices[[variable]]] <- NA
+# Loop to replace outliers and re-run imputation 3 times
+for (i in 1:3) {
+      imputed_data <- replace_outliers(imputed_data, variables_of_interest)
+      imputed_data <- complete(mice(imputed_data))
 }
 
-# Step 4: Re-run the imputation process
-imputed_data <- complete(mice(imputed_data))
-
-# Step 5: Evaluate the results
+# Evaluate the results
 summary(imputed_data)
 
 
@@ -204,4 +217,5 @@ which(imputed_data$CopperSHMET %in% boxplot(imputed_data$CopperSHMET)$out)
 which(imputed_data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel. %in% boxplot(imputed_data$Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)$out)
 # Interpolation linéaire pour remplacer les valeurs aberrantes
 view(imputed_data)
-write_csv(imputed_data, "data/cleaningdataCopperSHMET.csv")
+write_csv(imputed_data, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/data/cleaningdataCopperSHMET.csv")
+

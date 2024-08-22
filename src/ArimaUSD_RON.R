@@ -12,6 +12,45 @@ attach(data)
 # Check the data
 head(data)
 
+data$Date <- as.Date(data$Date)
+
+
+
+# Plot Official.Ask.LME against Dateoil
+plot(data$Date, data$Price, type="l", col="red",
+     xlab="Date", ylab="USD RON",
+     main="Official USD RON Time")
+# Supposons que data est déjà chargé et Dateoil est converti en classe Date
+
+# Ajouter une colonne pour l'année
+data$Year <- format(data$Date, "%Y")
+
+# Calculer la moyenne des prix pour chaque année
+
+
+mean_USDRON_per_year <- aggregate(data$Price, 
+                                  by = list(data$Year), 
+                                  FUN = mean, na.rm = TRUE)
+colnames(mean_USDRON_per_year) <- c("Year", "Mean_Official_USDRON")
+
+# Afficher les moyennes par année
+
+print(mean_USDRON_per_year)
+ 
+ 
+# Calculer la moyenne générale du prix officiel LME
+mean_official_ask_USDRON <- mean(data$Price, na.rm = TRUE)
+
+# Afficher les moyennes générales
+
+print(paste("Moyenne générale du prix officiel USD RON: ", mean_official_ask_USDRON))
+
+library(urca)
+
+
+
+kpss_test_USDRON <- ur.kpss(data$Price)
+summary(kpss_test_USDRON)
 # Plot the variables
 plot(Price, main = "USD to RON Exchange Rate", ylab = "Price", xlab = "Time")
 

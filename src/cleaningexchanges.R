@@ -10,43 +10,37 @@ library(ggthemes)
 library(mice)
 library(infotheo) 
  
-data_EUR_CNY <-  read.csv("dataexchanges/EUR_CNY.csv", header = TRUE, sep = ",")
+data_EUR_CNY <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/EUR_CNY.csv", header = TRUE, sep = ",")
 head(data_EUR_CNY)
-data_EUR_HNL <-  read.csv("dataexchanges/EUR_HNL.csv", header = TRUE, sep = ",")
+data_EUR_HNL <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/EUR_HNL.csv", header = TRUE, sep = ",")
 head(data_EUR_HNL)
-data_EUR_MAD <-  read.csv("dataexchanges/EUR_MAD.csv", header = TRUE, sep = ",")
+data_EUR_MAD <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/EUR_MAD.csv", header = TRUE, sep = ",")
 head(data_EUR_MAD)
-data_EUR_MKD <-  read.csv("dataexchanges/EUR_MKD.csv", header = TRUE, sep = ",")
+data_EUR_MKD <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/EUR_MKD.csv", header = TRUE, sep = ",")
 head(data_EUR_MKD)
-data_EUR_MXN <-  read.csv("dataexchanges/EUR_MXN.csv", header = TRUE, sep = ",")
+data_EUR_MXN <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/EUR_MXN.csv", header = TRUE, sep = ",")
 head(data_EUR_MXN)
-data_EUR_RON <-  read.csv("dataexchanges/EUR_RON.csv", header = TRUE, sep = ",")
+data_EUR_RON <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/EUR_RON.csv", header = TRUE, sep = ",")
 head(data_EUR_RON)
-data_EUR_RSD <-  read.csv("dataexchanges/EUR_RSD.csv", header = TRUE, sep = ",")
+data_EUR_RSD <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/EUR_RSD.csv", header = TRUE, sep = ",")
 head(data_EUR_RSD)
-data_EUR_TND <-  read.csv("dataexchanges/EUR_TND.csv", header = TRUE, sep = ",")
+data_EUR_TND <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/EUR_TND.csv", header = TRUE, sep = ",")
 head(data_EUR_TND)
-data_EUR_USD <-  read.csv("dataexchanges/EUR_USD.csv", header = TRUE, sep = ",")
+data_EUR_USD <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/EUR_USD.csv", header = TRUE, sep = ",")
 head(data_EUR_USD)
-data_USD_HNL <-  read.csv("dataexchanges/USD_HNL.csv", header = TRUE, sep = ",")
+data_USD_HNL <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/USD_HNL.csv", header = TRUE, sep = ",")
 head(data_USD_HNL)
-data_USD_MXN <-  read.csv("dataexchanges/USD_MXN.csv", header = TRUE, sep = ",")
+data_USD_MXN <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/USD_MXN.csv", header = TRUE, sep = ",")
 head(data_USD_MXN)
-data_USD_RON <-  read.csv("dataexchanges/USD_RON.csv", header = TRUE, sep = ",")
+data_USD_RON <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/USD_RON.csv", header = TRUE, sep = ",")
 head(data_USD_RON)
+data_USD_MKD <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/USD_MKD.csv", header = TRUE, sep = ",")
+head(data_USD_MKD)
  
 head(data_EUR_CNY)
-data_EUR_HNL$Date<- as.Date(data_EUR_HNL$Date , format =  "%m/%d/%Y")
-data_EUR_MAD$Date<- as.Date(data_EUR_MAD$Date , format =  "%m/%d/%Y")
-data_EUR_MKD$Date<- as.Date(data_EUR_MKD$Date , format =  "%m/%d/%Y") 
-data_EUR_MXN$Date<- as.Date(data_EUR_MXN$Date , format =  "%m/%d/%Y") 
-data_EUR_RON$Date<- as.Date(data_EUR_RON$Date , format =  "%m/%d/%Y") 
-data_EUR_RSD$Date<- as.Date(data_EUR_RSD$Date , format =  "%m/%d/%Y")
-data_EUR_TND$Date<- as.Date(data_EUR_TND$Date , format =  "%m/%d/%Y")
  
-data_USD_RON$Date<- as.Date(data_USD_RON$Date , format =  "%m/%d/%Y")
-data_USD_HNL$Date<- as.Date(data_USD_HNL$Date , format =  "%m/%d/%Y")
-data_USD_MXN$Date<- as.Date(data_USD_MXN$Date , format =  "%m/%d/%Y")
+ 
+
 
 
 # Convertir les colonnes de dates en format Date
@@ -56,12 +50,14 @@ data_EUR_MAD$Price<- as.numeric(data_EUR_MAD$Price )
 data_EUR_MKD$Price<- as.numeric(data_EUR_MKD$Price) 
 data_EUR_MXN$Price<- as.numeric(data_EUR_MXN$Price) 
 data_EUR_RON$Price<- as.numeric(data_EUR_RON$Price) 
+ 
 data_EUR_RSD$Price<- as.numeric(data_EUR_RSD$Price )
 data_EUR_TND$Price<- as.numeric(data_EUR_TND$Price )
 data_EUR_USD$Price<- as.numeric(data_EUR_USD$Price )
 data_USD_HNL$Price<- as.numeric(data_USD_HNL$Price )
 data_USD_MXN$Price<- as.numeric(data_USD_MXN$Price )
 data_USD_RON$Price<- as.numeric(data_USD_RON$Price )
+data_USD_MKD$Price<- as.numeric(data_USD_MKD$Price )
 
 head(data_USD_RON)
 head(data_USD_MXN)
@@ -75,18 +71,77 @@ head(data_EUR_MKD)
 head(data_EUR_MAD)
 head(data_EUR_CNY)
 head(data_EUR_HNL)
-write_csv(data_USD_RON, "dataexchanges/data_USD_RON.csv")
-write_csv(data_USD_MXN, "dataexchanges/data_USD_MXN.csv")
-write_csv(data_USD_HNL, "dataexchanges/data_USD_HNL.csv")
-write_csv(data_EUR_USD, "dataexchanges/data_EUR_USD.csv")
-write_csv(data_EUR_TND, "dataexchanges/data_EUR_TND.csv")
-write_csv(data_EUR_RSD, "dataexchanges/data_EUR_RSD.csv")
+head(data_USD_MKD)
+# Ordering each data frame by the Date column
+# Convert the Date column to Date format and order each data frame
+data_USD_RON$Date <- as.Date(data_USD_RON$Date)
+data_USD_RON <- data_USD_RON[order(data_USD_RON$Date), ]
+head(data_USD_RON)
+
+data_USD_MXN$Date <- as.Date(data_USD_MXN$Date)
+data_USD_MXN <- data_USD_MXN[order(data_USD_MXN$Date), ]
+head(data_USD_MXN)
+
+data_USD_HNL$Date <- as.Date(data_USD_HNL$Date)
+data_USD_HNL <- data_USD_HNL[order(data_USD_HNL$Date), ]
+head(data_USD_HNL)
+
+data_EUR_USD$Date <- as.Date(data_EUR_USD$Date)
+data_EUR_USD <- data_EUR_USD[order(data_EUR_USD$Date), ]
+head(data_EUR_USD)
+
+data_EUR_TND$Date <- as.Date(data_EUR_TND$Date)
+data_EUR_TND <- data_EUR_TND[order(data_EUR_TND$Date), ]
+head(data_EUR_TND)
+
+data_EUR_RSD$Date <- as.Date(data_EUR_RSD$Date)
+data_EUR_RSD <- data_EUR_RSD[order(data_EUR_RSD$Date), ]
+head(data_EUR_RSD)
+
+data_EUR_RON$Date <- as.Date(data_EUR_RON$Date)
+data_EUR_RON <- data_EUR_RON[order(data_EUR_RON$Date), ]
+head(data_EUR_RON)
+
+data_EUR_MXN$Date <- as.Date(data_EUR_MXN$Date)
+data_EUR_MXN <- data_EUR_MXN[order(data_EUR_MXN$Date), ]
+head(data_EUR_MXN)
+
+data_EUR_MKD$Date <- as.Date(data_EUR_MKD$Date)
+data_EUR_MKD <- data_EUR_MKD[order(data_EUR_MKD$Date), ]
+head(data_EUR_MKD)
+
+data_EUR_MAD$Date <- as.Date(data_EUR_MAD$Date)
+data_EUR_MAD <- data_EUR_MAD[order(data_EUR_MAD$Date), ]
+head(data_EUR_MAD)
+
+data_EUR_CNY$Date <- as.Date(data_EUR_CNY$Date)
+data_EUR_CNY <- data_EUR_CNY[order(data_EUR_CNY$Date), ]
+head(data_EUR_CNY)
+
+data_EUR_HNL$Date <- as.Date(data_EUR_HNL$Date)
+data_EUR_HNL <- data_EUR_HNL[order(data_EUR_HNL$Date), ]
+head(data_EUR_HNL)
+
+data_USD_MKD$Date <- as.Date(data_USD_MKD$Date)
+data_USD_MKD <- data_USD_MKD[order(data_USD_MKD$Date), ]
+head(data_USD_MKD)
+
+tail(data_EUR_HNL)
  
-write_csv(data_EUR_MXN, "dataexchanges/data_EUR_MXN.csv")
-write_csv(data_EUR_MKD, "dataexchanges/data_EUR_MKD.csv")
-write_csv(data_EUR_MAD, "dataexchanges/data_EUR_MAD.csv")
-write_csv(data_EUR_CNY, "dataexchanges/data_EUR_CNY.csv")
-write_csv(data_EUR_HNL, "dataexchanges/data_EUR_HNL.csv")
+write_csv(data_USD_RON, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_USD_RON.csv")
+write_csv(data_USD_MXN, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_USD_MXN.csv")
+write_csv(data_USD_HNL, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_USD_HNL.csv")
+write_csv(data_EUR_USD, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_USD.csv")
+write_csv(data_EUR_TND, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_TND.csv")
+write_csv(data_EUR_RON, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_RON.csv")
+write_csv(data_EUR_RSD, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_RSD.csv")
+write_csv(data_USD_MKD, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_USD_MKD.csv") 
+write_csv(data_EUR_MXN, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_MXN.csv")
+write_csv(data_EUR_MKD, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_MKD.csv")
+write_csv(data_EUR_MAD, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_MAD.csv")
+write_csv(data_EUR_CNY, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_CNY.csv")
+write_csv(data_EUR_HNL, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_HNL.csv")
+
 # Afficher les données complètes
 print(data_USD_RON)
 View(data_USD_RON)
@@ -104,12 +159,12 @@ print(missing_valuedata_USD_RON)
  
 total_missingdata_USD_RON <- sum(is.na(data_USD_RON$Price))
 
-data_USD_RON <-  read.csv("dataexchanges/data_USD_RON.csv", header = TRUE, sep = ",")
+data_USD_RON <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_USD_RON.csv", header = TRUE, sep = ",")
  
 # Afficher le nombre total de données manquantes
 print(data_USD_RON)
 
-data_EUR_RON <-  read.csv("dataexchanges/data_EUR_RON.csv", header = TRUE, sep = ",")
+data_EUR_RON <-  read.csv("C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_RON.csv", header = TRUE, sep = ",")
 
 # Afficher le nombre total de données manquantes
 print(data_EUR_RON)
@@ -249,7 +304,7 @@ barplot(data_EUR_HNL$Price)
 hist(data_EUR_HNL$Price)
 par(mfrow = c(1, 2))
 hist(data_EUR_HNL$Price, main = "EUR_HNL", xlab = "EUR_HNL", col = "lightblue")
- 
+print(tail(data_EUR_HNL) )
 
 # Pour data_USD_MXN
 print(data_USD_MXN)
@@ -264,6 +319,20 @@ barplot(data_USD_MXN$Price)
 hist(data_USD_MXN$Price)
 par(mfrow = c(1, 2))
 hist(data_USD_MXN$Price, main = "USD_MXN", xlab = "USD_MXN", col = "lightblue")
+# Pour data_USD_MKD
+print(data_USD_MKD)
+missing_values_USD_MKD <- sapply(data_USD_MKD$Price, function(x) sum(is.na(x)))
+print(missing_values_USD_MKD)
+total_missing_USD_MKD <- sum(is.na(data_USD_MKD$Price))
+print(total_missing_USD_MKD)
+
+boxplot(data_USD_MKD$Price)
+summary(data_USD_MKD$Price)
+barplot(data_USD_MKD$Price)
+hist(data_USD_MKD$Price)
+par(mfrow = c(1, 2))
+hist(data_USD_MKD$Price, main = "USD_MKD", xlab = "USD_MKD", col = "lightblue")
+
 
 # Pour data_USD_HNL
 print(data_USD_HNL)
@@ -278,189 +347,126 @@ barplot(data_USD_HNL$Price)
 hist(data_USD_HNL$Price)
 par(mfrow = c(1, 2))
 hist(data_USD_HNL$Price, main = "USD_HNL", xlab = "USD_HNL", col = "lightblue")
-# Imputer les données manquantes pour data_USD_MXN
-imputed_data_USD_MXN <- complete(mice(data_USD_MXN))
-
-# Étape 2: Identifier les valeurs aberrantes en utilisant un boxplot ou toute autre méthode pour chaque variable d'intérêt
-variables_of_interest <- c("Price") # Ajoutez plus de variables au besoin
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data_USD_MXN[[variable]] %in% boxplot(imputed_data_USD_MXN[[variable]])$out)
-}
-
-# Étape 3: Remplacer les valeurs aberrantes par NA pour chaque variable
-for (variable in variables_of_interest) {
-      imputed_data_USD_MXN[[variable]][outlier_indices[[variable]]] <- NA
-}
-
-# Étape 4: Réexécuter le processus d'imputation
-imputed_data_USD_MXN <- complete(mice(imputed_data_USD_MXN))
-
-# Étape 5: Évaluer les résultats
-summary(imputed_data_USD_MXN)
-which(imputed_data_USD_MXN$Price %in% boxplot(imputed_data_USD_MXN$Price)$out)
  
+library(mice)
+library(dplyr)
+library(readr)  # For writing CSV files
 
-# Imputer les données manquantes pour data_USD_HNL
-imputed_data_USD_HNL <- complete(mice(data_USD_HNL))
-variables_of_interest <- c("Price") 
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data_USD_HNL[[variable]] %in% boxplot(imputed_data_USD_HNL[[variable]])$out)
+# Function to identify and replace outliers with NA and impute missing values
+remove_outliers_and_impute <- function(data, variables) {
+      outlier_indices <- list()
+      for (variable in variables) {
+            # Identify indices of outliers
+            outliers <- boxplot(data[[variable]], plot = FALSE)$out
+            outlier_indices[[variable]] <- which(data[[variable]] %in% outliers)
+            # Replace outliers with NA
+            data[[variable]][outlier_indices[[variable]]] <- NA
+      }
+      # Perform imputation
+      imputed_data <- complete(mice(data))
+      return(imputed_data)
 }
-for (variable in variables_of_interest) {
-      imputed_data_USD_HNL[[variable]][outlier_indices[[variable]]] <- NA
-}
-imputed_data_USD_HNL <- complete(mice(imputed_data_USD_HNL))
-summary(imputed_data_USD_HNL)
-which(imputed_data_USD_HNL$Price %in% boxplot(imputed_data_USD_HNL$Price)$out)
-# Imputer les données manquantes pour data_EUR_USD
-imputed_data_EUR_USD <- complete(mice(data_EUR_USD))
-variables_of_interest <- c("Price") 
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data_EUR_USD[[variable]] %in% boxplot(imputed_data_EUR_USD[[variable]])$out)
-}
-for (variable in variables_of_interest) {
-      imputed_data_EUR_USD[[variable]][outlier_indices[[variable]]] <- NA
-}
-imputed_data_EUR_USD <- complete(mice(imputed_data_EUR_USD))
-summary(imputed_data_EUR_USD)
-which(imputed_data_EUR_USD$Price %in% boxplot(imputed_data_EUR_USD$Price)$out)
-# Imputer les données manquantes pour data_EUR_TND
-imputed_data_EUR_TND <- complete(mice(data_EUR_TND))
-variables_of_interest <- c("Price") 
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data_EUR_TND[[variable]] %in% boxplot(imputed_data_EUR_TND[[variable]])$out)
-}
-for (variable in variables_of_interest) {
-      imputed_data_EUR_TND[[variable]][outlier_indices[[variable]]] <- NA
-}
-imputed_data_EUR_TND <- complete(mice(imputed_data_EUR_TND))
-summary(imputed_data_EUR_TND)
-which(imputed_data_EUR_TND$Price %in% boxplot(imputed_data_EUR_TND$Price)$out)
- 
-# Imputer les données manquantes pour data_EUR_RSD
-imputed_data_EUR_RSD <- complete(mice(data_EUR_RSD))
-variables_of_interest <- c("Price") 
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data_EUR_RSD[[variable]] %in% boxplot(imputed_data_EUR_RSD[[variable]])$out)
-}
-for (variable in variables_of_interest) {
-      imputed_data_EUR_RSD[[variable]][outlier_indices[[variable]]] <- NA
-}
-imputed_data_EUR_RSD <- complete(mice(imputed_data_EUR_RSD))
-summary(imputed_data_EUR_RSD)
-which(imputed_data_EUR_RSD$Price %in% boxplot(imputed_data_EUR_RSD$Price)$out) 
-# Imputer les données manquantes pour data_EUR_RON
-imputed_data_EUR_RON <- complete(mice(data_EUR_RON))
-variables_of_interest <- c("Price") 
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data_EUR_RON[[variable]] %in% boxplot(imputed_data_EUR_RON[[variable]])$out)
-}
-for (variable in variables_of_interest) {
-      imputed_data_EUR_RON[[variable]][outlier_indices[[variable]]] <- NA
-}
-imputed_data_EUR_RON <- complete(mice(imputed_data_EUR_RON))
-summary(imputed_data_EUR_RON)
-which(imputed_data_EUR_RON$Price %in% boxplot(imputed_data_EUR_RON$Price)$out) 
-# Imputer les données manquantes pour data_EUR_MXN
-imputed_data_EUR_MXN <- complete(mice(data_EUR_MXN))
-variables_of_interest <- c("Price") 
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data_EUR_MXN[[variable]] %in% boxplot(imputed_data_EUR_MXN[[variable]])$out)
-}
-for (variable in variables_of_interest) {
-      imputed_data_EUR_MXN[[variable]][outlier_indices[[variable]]] <- NA
-}
-imputed_data_EUR_MXN <- complete(mice(imputed_data_EUR_MXN))
-summary(imputed_data_EUR_MXN)
-which(imputed_data_EUR_MXN$Price %in% boxplot(imputed_data_EUR_MXN$Price)$out) 
-# Imputer les données manquantes pour data_EUR_MKD
-imputed_data_EUR_MKD <- complete(mice(data_EUR_MKD))
-variables_of_interest <- c("Price") 
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data_EUR_MKD[[variable]] %in% boxplot(imputed_data_EUR_MKD[[variable]])$out)
-}
-for (variable in variables_of_interest) {
-      imputed_data_EUR_MKD[[variable]][outlier_indices[[variable]]] <- NA
-}
-imputed_data_EUR_MKD <- complete(mice(imputed_data_EUR_MKD))
-summary(imputed_data_EUR_MKD)
-which( imputed_data_EUR_MKD$Price %in% boxplot( imputed_data_EUR_MKD$Price)$out)  
 
-# Imputer les données manquantes pour data_EUR_MAD
-imputed_data_EUR_MAD <- complete(mice(data_EUR_MAD))
-variables_of_interest <- c("Price") 
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data_EUR_MAD[[variable]] %in% boxplot(imputed_data_EUR_MAD[[variable]])$out)
-}
-for (variable in variables_of_interest) {
-      imputed_data_EUR_MAD[[variable]][outlier_indices[[variable]]] <- NA
-}
-imputed_data_EUR_MAD <- complete(mice(imputed_data_EUR_MAD))
-summary(imputed_data_EUR_MAD)
-which(imputed_data_EUR_MAD$Price %in% boxplot(imputed_data_EUR_MAD$Price)$out) 
-# Imputer les données manquantes pour data_EUR_CNY
-imputed_data_EUR_CNY <- complete(mice(data_EUR_CNY))
-variables_of_interest <- c("Price") 
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data_EUR_CNY[[variable]] %in% boxplot(imputed_data_EUR_CNY[[variable]])$out)
-}
-for (variable in variables_of_interest) {
-      imputed_data_EUR_CNY[[variable]][outlier_indices[[variable]]] <- NA
-}
-imputed_data_EUR_CNY <- complete(mice(imputed_data_EUR_CNY))
-summary(imputed_data_EUR_CNY)
-which(imputed_data_EUR_CNY$Price %in% boxplot(imputed_data_EUR_CNY$Price)$out)  
+# List of datasets
+datasets <- list(
+      USD_MXN = data_USD_MXN,
+      USD_MKD = data_USD_MKD,
+      USD_HNL = data_USD_HNL,
+      EUR_USD = data_EUR_USD,
+      EUR_TND = data_EUR_TND,
+      EUR_RSD = data_EUR_RSD,
+      EUR_RON = data_EUR_RON,
+      EUR_MXN = data_EUR_MXN,
+      EUR_MKD = data_EUR_MKD,
+      EUR_MAD = data_EUR_MAD,
+      EUR_CNY = data_EUR_CNY,
+      EUR_HNL = data_EUR_HNL,
+      USD_RON = data_USD_RON
+)
 
-# Imputer les données manquantes pour data_EUR_HNL
-imputed_data_EUR_HNL <- complete(mice(data_EUR_HNL))
-variables_of_interest <- c("Price") 
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which(imputed_data_EUR_HNL[[variable]] %in% boxplot(imputed_data_EUR_HNL[[variable]])$out)
+# Variable of interest
+variables_of_interest <- c("Price")
+
+# Process datasets
+imputed_datasets <- list()
+for (dataset_name in names(datasets)) {
+      cat("Processing:", dataset_name, "\n")
+      data <- datasets[[dataset_name]]
+      
+      # Execute the process twice
+      for (i in 1:2) {
+            data <- remove_outliers_and_impute(data, variables_of_interest)
+      }
+      
+      imputed_datasets[[dataset_name]] <- data
+      
+      # Evaluate results
+      summary(data)
+      remaining_outliers <- which(data$Price %in% boxplot(data$Price, plot = FALSE)$out)
+      cat("Number of remaining outliers in", dataset_name, ":", length(remaining_outliers), "\n\n")
 }
-for (variable in variables_of_interest) {
-      imputed_data_EUR_HNL[[variable]][outlier_indices[[variable]]] <- NA
-}
-imputed_data_EUR_HNL <- complete(mice(imputed_data_EUR_HNL))
-summary(imputed_data_EUR_HNL)
-which( imputed_data_EUR_HNL$Price %in% boxplot( imputed_data_EUR_HNL$Price)$out)
+
+# Save each imputed dataset to a CSV file
+write_csv(imputed_datasets$USD_RON, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_USD_RON.csv")
+write_csv(imputed_datasets$USD_MXN, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_USD_MXN.csv")
+write_csv(imputed_datasets$USD_MKD, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_USD_MKD.csv")
+write_csv(imputed_datasets$USD_HNL, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_USD_HNL.csv")
+write_csv(imputed_datasets$EUR_USD, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_USD.csv")
+write_csv(imputed_datasets$EUR_TND, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_TND.csv")
+write_csv(imputed_datasets$EUR_RSD, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_RSD.csv")
+write_csv(imputed_datasets$EUR_RON, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_RON.csv")
+write_csv(imputed_datasets$EUR_MXN, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_MXN.csv")
+write_csv(imputed_datasets$EUR_MKD, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_MKD.csv")
+write_csv(imputed_datasets$EUR_MAD, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_MAD.csv")
+write_csv(imputed_datasets$EUR_CNY, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_CNY.csv")
+write_csv(imputed_datasets$EUR_HNL, "C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_HNL.csv")
+print(tail(imputed_datasets$EUR_HNL))
+library(readr)
+library(dplyr)
+library(lubridate)
+
+# Lire les fichiers CSV
+eur_ron <- read_csv('C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_RON.csv')
+eur_rsd <- read_csv('C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_EUR_RSD.csv')
+
+# Convertir la colonne 'Date' en format datetime pour les deux DataFrames
+eur_ron$Date <- as.Date(eur_ron$Date, format = "%m/%d/%Y")
+eur_rsd$Date <- as.Date(eur_rsd$Date, format = "%m/%d/%Y")
+# Afficher les premières lignes des DataFrames pour vérifier les colonnes
+print(head(eur_ron))
+print(head(eur_rsd))
+
+# Convertir la colonne 'Date' en format datetime pour les deux DataFrames
+eur_ron$Date <- ymd(eur_ron$Date)
+eur_rsd$Date <- ymd(eur_rsd$Date)
+
+# Vérifier les dates min et max pour s'assurer qu'il y a des dates correspondantes
+print(range(eur_ron$Date))
+print(range(eur_rsd$Date))
+
+# Vérifier les valeurs manquantes dans les colonnes 'Date'
+print(sum(is.na(eur_ron$Date)))
+print(sum(is.na(eur_rsd$Date)))
 
 
-# Imputer les données manquantes pour data_EUR_HNL
-imputed_data_USD_RON <- complete(mice(data_USD_RON))
-variables_of_interest <- c("Price") 
-outlier_indices <- list()
-for (variable in variables_of_interest) {
-      outlier_indices[[variable]] <- which( imputed_data_USD_RON[[variable]] %in% boxplot( imputed_data_USD_RON[[variable]])$out)
-}
-for (variable in variables_of_interest) {
-      imputed_data_USD_RON[[variable]][outlier_indices[[variable]]] <- NA
-}
-imputed_data_USD_RON <- complete(mice( imputed_data_USD_RON))
-summary(imputed_data_USD_RON)
-which(imputed_data_USD_RON$Price %in% boxplot( imputed_data_USD_RON$Price)$out)
-write_csv(imputed_data_USD_RON, "dataexchanges/data_USD_RON.csv")
-write_csv(imputed_data_USD_MXN, "dataexchanges/data_USD_MXN.csv")
-write_csv(imputed_data_USD_HNL, "dataexchanges/data_USD_HNL.csv")
-write_csv(imputed_data_EUR_USD, "dataexchanges/data_EUR_USD.csv")
-write_csv(imputed_data_EUR_TND, "dataexchanges/data_EUR_TND.csv")
-write_csv(imputed_data_EUR_RSD, "dataexchanges/data_EUR_RSD.csv")
-write_csv(imputed_data_EUR_RON, "dataexchanges/data_EUR_RON.csv")
-write_csv(imputed_data_EUR_MXN, "dataexchanges/data_EUR_MXN.csv")
-write_csv(imputed_data_EUR_MKD, "dataexchanges/data_EUR_MKD.csv")
-write_csv(imputed_data_EUR_MAD, "dataexchanges/data_EUR_MAD.csv")
-write_csv(imputed_data_EUR_CNY, "dataexchanges/data_EUR_CNY.csv")
-write_csv(imputed_data_EUR_HNL, "dataexchanges/data_EUR_HNL.csv")
- 
+# Fusionner les deux DataFrames sur la colonne 'Date'
+merged_df <- merge(eur_ron, eur_rsd, by = 'Date', suffixes = c('_RON', '_RSD'))
+
+# Supprimer les lignes où 'Price_RON' ou 'Price_RSD' sont NA
+merged_df <- merged_df %>% filter(!is.na(Price_RON) & !is.na(Price_RSD))
+
+
+# Calculer le taux de change RON/RSD
+merged_df$Price <- merged_df$Price_RON / merged_df$Price_RSD
+print(merged_df)
+# Calculer le taux de change RON/RSD
+merged_df$Price <- merged_df$Price_RON / merged_df$Price_RSD
+# Créer un nouveau DataFrame pour le fichier RON/RSD
+ron_rsd_df <- merged_df %>% select(Date, Price )
+
+# Sauvegarder le nouveau DataFrame dans un fichier CSV
+write_csv(ron_rsd_df, 'C:/Users/HP/Downloads/Predicting_Metal_Cost_with_R-master-20240318T152350Z-001/Predicting_Metal_Cost_with_R-master/dataexchanges/data_RON_RSD.csv')
+print(ron_rsd_df)
+
 
 

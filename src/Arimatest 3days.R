@@ -3,7 +3,7 @@ library(forecast)
 library(tseries)
 library(ggplot2)
 # Read the data
-data <- read.csv("data/cleanindata.csv", header = TRUE)
+data <- read.csv("data/cleaningdata.csv", header = TRUE)
 head(data)
 
 
@@ -16,49 +16,49 @@ attach(data)
 head(data)
 
 # Plot the variables
-plot(Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)
-plot(Official.Ask.LME)
+plot(Price)
+plot(price_copper_LME)
 
 # Check stationarity
-adf.test(Official.Ask.LME, alternative = "stationary")
-adf.test(Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel., alternative = "stationary")
+adf.test(price_copper_LME, alternative = "stationary")
+adf.test(Price, alternative = "stationary")
 # Compute ACF and PACF
-acf(Official.Ask.LME)
-pacf(Official.Ask.LME)
+acf(price_copper_LME)
+pacf(price_copper_LME)
 # Take differences for stationarity
-d.Official.Ask.LME <- diff(Official.Ask.LME)
-d.Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel. <- diff(Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)
+d.price_copper_LME <-  diff(price_copper_LME)
+d.Price <- diff(Price)
 
 # Plot differenced variables
-plot(d.Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel.)
-plot(d.Official.Ask.LME)
+plot(d.Price)
+plot(d.price_copper_LME)
 
 # Check stationarity of differenced series
-adf.test(d.Official.Ask.LME, alternative = "stationary")
-adf.test(d.Cushing..OK.WTI.Spot.Price.FOB..Dollars.per.Barrel., alternative = "stationary")
+adf.test(d.price_copper_LME, alternative = "stationary")
+adf.test(d.Price, alternative = "stationary")
 
 # Compute ACF and PACF
-acf(d.Official.Ask.LME)
-pacf(d.Official.Ask.LME)
+acf(d.price_copper_LME)
+pacf(d.price_copper_LME)
 
-Arima(data[,3] ,  xreg = data[, 2] , order = c(1, 1, 0))
-Arima(data[,3] ,  xreg = data[, 2], order = c(2, 1, 0))
-Arima(data[,3] ,  xreg = data[, 2], order = c(1, 1, 1))
-Arima(data[,3] ,  xreg = data[, 2], order = c(0, 1, 1))
-Arima(data[,3],  xreg =  data[, 2], order = c(0, 1, 2))
-Arima(data[,3],  xreg =data[, 2] , order = c(2, 1, 1))
-Arima(data[,3] , xreg = data[, 2] , order = c(1, 1, 2))
-Arima(data[,3],  xreg = data[, 2] , order = c(2, 1, 2))
+Arima(data[,2] ,  xreg = data[, 3] , order = c(1, 1, 0))
+Arima(data[,2] ,  xreg = data[, 3], order = c(2, 1, 0))
+Arima(data[,2] ,  xreg = data[, 3], order = c(1, 1, 1))
+Arima(data[,2] ,  xreg = data[, 3], order = c(0, 1, 1))
+Arima(data[,2],  xreg =  data[, 3], order = c(0, 1, 2))
+Arima(data[,2],  xreg =data[, 3] , order = c(2, 1, 1))
+Arima(data[,2] , xreg = data[, 3] , order = c(1, 1, 2))
+Arima(data[,2],  xreg = data[, 3] , order = c(2, 1, 2))
 # Fit ARIMA models
 models <- list(
-      Arima(data[,3],  xreg = data[,2], order = c(1, 1, 0)),
-      Arima(data[,3],  xreg = data[,2], order = c(2, 1, 0)),
-      Arima(data[,3],  xreg = data[,2], order = c(1, 1, 1)),
-      Arima(data[,3],  xreg = data[,2], order = c(0, 1, 1)),
-      Arima(data[,3], xreg = data[,2], order = c(0, 1, 2)),
-      Arima(data[,3], xreg = data[,2], order = c(2, 1, 1)),
-      Arima(data[,3],  xreg = data[,2], order = c(1, 1, 2)),
-      Arima(data[,3],  xreg = data[,2], order = c(2, 1, 2))
+      Arima(data[,2],  xreg = data[,3], order = c(1, 2, 0)),
+      Arima(data[,2],  xreg = data[,3], order = c(1, 2, 1)),
+      Arima(data[,2],  xreg = data[,3], order = c(1, 2, 2)),
+      Arima(data[,2],  xreg = data[,3], order = c(1, 2, 3)),
+      Arima(data[,2], xreg = data[,3], order = c(1, 2, 4)),
+      Arima(data[,2], xreg = data[,3], order = c(1, 2, 5)),
+      Arima(data[,2],  xreg = data[,3], order = c(1, 2, 6)),
+      Arima(data[,2],  xreg = data[,3], order = c(1, 2, 7))
 )
 
 # Calculate AIC for each model
@@ -138,7 +138,7 @@ ggplot(likelihood_df, aes(x = Model, y = Likelihood)) +
 r_squared <- sapply(models, function(model) {
       residuals <- residuals(model)
       SSE <- sum(residuals^2)
-      SST <- sum((data[,3] - mean(data[,3]))^2)
+      SST <- sum((data[,2] - mean(data[,2]))^2)
       R_squared <- 1 - SSE / SST
       return(R_squared)
 })
@@ -232,12 +232,12 @@ ggplot(mse_df, aes(x = Model, y = MSE)) +
 
 
 # Fit ARIMA with best  model with exogenous variable
-fit <-  Arima(data[,3] , xreg = data[, 2] , order = c(0, 1, 1))
+fit <-  Arima(data[,2] , xreg = data[, 3] , order = c(1, 2, 7))
 # Adjust figure margins
 par(mar = c(1, 4, 4, 2) + 0.1)
 # Fit ARIMA with best  model with exogenous variable
-fitoil <-  auto.arima(data[, 2] )
-forecastoil <- forecast(fitoil, h = 3)
+fitoil <-  auto.arima(data[, 3] )
+forecastoil <- forecast(fitoil, h = 2)
 
 # Plot diagnostics
 tsdiag(fit)

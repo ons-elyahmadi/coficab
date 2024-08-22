@@ -13,6 +13,46 @@ attach(data)
 # Check the data
 head(data)
 
+data$Date <- as.Date(data$Date)
+
+
+
+# Plot Official.Ask.LME against Dateoil
+plot(data$Date, data$Price, type="l", col="red",
+     xlab="Date", ylab="USD HNL",
+     main="Official USD HNL Time")
+# Supposons que data est déjà chargé et Dateoil est converti en classe Date
+
+# Ajouter une colonne pour l'année
+data$Year <- format(data$Date, "%Y")
+
+# Calculer la moyenne des prix pour chaque année
+
+
+mean_USDHNL_per_year <- aggregate(data$Price, 
+                                  by = list(data$Year), 
+                                  FUN = mean, na.rm = TRUE)
+colnames(mean_USDHNL_per_year) <- c("Year", "Mean_Official_USDHNL")
+
+# Afficher les moyennes par année
+
+print(mean_USDHNL_per_year)
+
+
+# Calculer la moyenne générale du prix officiel LME
+mean_official_ask_USDHNL <- mean(data$Price, na.rm = TRUE)
+
+# Afficher les moyennes générales
+
+print(paste("Moyenne générale du prix officiel USD HNL : ", mean_official_ask_USDHNL))
+
+library(urca)
+
+
+
+kpss_test_USDHNL <- ur.kpss(data$Price)
+summary(kpss_test_USDHNL)
+
 # Plot the variables
 plot(Price, main = "USD to HNL Exchange Rate", ylab = "Price", xlab = "Time")
 
@@ -213,7 +253,7 @@ ggplot(mse_df, aes(x = Model, y = MSE)) +
       theme_minimal()
 
 # Fit ARIMA with best model with exogenous variable
-fit <- Arima(data[,2], order = c(3, 1, 3))
+fit <- Arima(data[,2], order = c(1, 1, 3))
 
 # Adjust figure margins
 par(mar = c(1, 4, 4, 2) + 0.1)
