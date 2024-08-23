@@ -8,10 +8,10 @@ body {
 }
 
 .roadmap-container {
-  margin-top: 50px;
+  margin-top: 80px;
   position: relative;
   width: 100%;
-  height: 90vh;
+  height: 91vh;
   background: url('/assets/logo/cof.jpg') no-repeat center center;
   background-size: cover;
   display: flex;

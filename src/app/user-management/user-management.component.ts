@@ -51,6 +51,7 @@ export class UserManagementComponent implements OnInit {
 
   saveUser(): void {
     if (this.selectedUser.id) {
+      this.selected=true;
       this.apiService.updateUser(
         this.selectedUser.id, 
         this.selectedUser.email, 
@@ -89,6 +90,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   deleteUser(id: number): void {
+    this.selected=true;
     this.apiService.deleteUser(id).subscribe(
       () => {
         this.loadUsers();

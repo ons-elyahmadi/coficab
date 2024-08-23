@@ -16,7 +16,7 @@ import { TableComponent } from './table/table.component';
 
 const routes: Routes = [
   { path: 'agent-dashboard', component: AgentDashboardComponent , canActivate: [AuthGuard],
-    data: {  ROLE : 'Agent' } , children: [
+    data: {  ROLE: 'Agent' } , children: [
     { path: 'user-management', component: UserManagementComponent },
     
     { path: 'chat', component: ChatComponent },
@@ -27,7 +27,7 @@ const routes: Routes = [
   ]
 },
 { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] ,
-  data: {  ROLE : 'User' }, children: [
+  data: {  ROLE: 'User' }, children: [
   
   { path: 'send-mail', component: SendMailComponent },
   { path: 'chat', component: ChatComponent },

@@ -15,7 +15,10 @@ export class ApiService {
   private token: string | null = localStorage.getItem('token'); // Initialize with stored token
 
   constructor(private http: HttpClient) {}
+ 
+  
 
+   
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/login`, { email, password })
       .pipe(
@@ -42,7 +45,12 @@ export class ApiService {
     this.token = null;
   }
 
-  
+  // Example API method that requires authorization
+  sendMessage(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/send_message`, data, {
+      headers: this.getHeaders()
+    });
+  }
 
   logout(): Observable<any> {
     const token = localStorage.getItem('token'); // Retrieve token
@@ -96,9 +104,7 @@ export class ApiService {
   sendTableCsv(data: { table_name: string, recipient: string, subject?: string }): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/send_table_csv`, data);
   }
-  sendMessage(data: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/send_message`, data , { headers: this.getHeaders() });
-  }
+   
    
   signup(email: string, password: string, ROLE: string, username: string): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/signup`, { email, password, ROLE, username });
