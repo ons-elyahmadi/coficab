@@ -1,0 +1,30 @@
+<div class="bac">  
+<div class="container">
+ 
+  <div> 
+  <h2>Select Tables</h2>
+  
+  <mat-form-field appearance="fill">
+    <mat-label style="color: white;">Select Tables</mat-label>
+    <mat-select (selectionChange)="onTableSelect($event.value)" multiple aria-label="Select tables">
+      <mat-option *ngFor="let table of tables" [value]="table">
+        {{ table }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngFor="let table of selectedTables" class="table-container">
+    <h3>{{ table }}</h3>
+    <table mat-table [dataSource]="tableData[table]" class="mat-elevation-z8">
+      <ng-container *ngFor="let column of getColumns(table)" [matColumnDef]="column">
+        <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+        <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="getColumns(table)"></tr>
+      <tr mat-row *matRowDef="let row; columns: getColumns(table);"></tr>
+    </table>
+  </div>
+</div>
+</div>
+</div>

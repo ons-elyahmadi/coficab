@@ -1,0 +1,18 @@
+.dashboard-container {
+  background: linear-gradient(
+      rgba(22, 17, 168, 0.5),
+      rgba(51, 87, 247, 0.5)
+    ), url('/assets/logo/cof.jpg') no-repeat center center;
+  background-size: cover;
+  margin-top: 60px;
+  width: 100%;
+  height: 92vh;
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+}
+
+iframe {
+  border: none;
+}

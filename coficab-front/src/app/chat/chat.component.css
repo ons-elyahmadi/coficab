@@ -1,0 +1,85 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 92vh; /* Full height of the viewport */
+  padding-top: 60px;
+  background: 
+    linear-gradient(
+      170deg, 
+      rgba(220, 132, 29, 0.8) 0%, 
+      rgba(22, 17, 168, 0.8) 68%, 
+      rgba(51, 87, 247, 0.8) 100%
+    ), 
+    url('/assets/logo/cof.jpg') no-repeat center center; /* Background image */
+  background-size: cover; /* Cover the entire container */
+  color: white; /* Keep text color white */
+ 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Prevent scrollbars on container */
+}
+
+.recipient-input {
+  margin-bottom: 15px;
+  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+  border-radius: 10px;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background for messages */
+  border-radius: 10px;
+  margin-bottom: 15px;
+  scrollbar-width: thin; /* Thin scrollbar */
+  scrollbar-color: #888 #444; /* Scrollbar color */
+}
+
+.messages .sent {
+  text-align: right;
+}
+
+.messages .received {
+  text-align: left;
+}
+
+.messages .sent span {
+  background-color: #d88d03;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  display: inline-block;
+  margin: 5px 0;
+}
+
+.messages .received span {
+  background-color: #031285;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  display: inline-block;
+  margin: 5px 0;
+}
+
+.timestamp {
+  font-size: 0.8em;
+  color: #ccc;
+  margin-top: 5px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.message-input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+button mat-icon {
+  color: white;
+}

@@ -1,0 +1,114 @@
+.send-mail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-top: 60px;
+  background: 
+    linear-gradient(
+      rgba(22, 17, 168, 0.5), 
+      rgba(51, 87, 247, 0.5)
+    ), 
+    url('/assets/logo/cof.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+}
+
+.email-card {
+  width: 420px;
+  margin-top: -2cm;
+  background: linear-gradient(170deg, rgba(220,132,29,0.8) 0%, rgba(22,17,168,0.8) 68%, rgba(51,87,247,0.8) 100%); /* Adjust opacity for gradient */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+  color: #ffffff; /* White text */
+   
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.mat-card-header-center {
+  text-align: center;
+  margin-left: 3cm;
+  margin-bottom: 10px;
+}
+
+.mat-card-title-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.mat-button-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-label {
+  color: #fff !important;
+}
+
+.mat-input-element {
+  color: #000 !important;
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.mat-input-element::placeholder {
+  color: rgba(0, 0, 0, 0.6);
+  opacity: 1;
+}
+
+.mat-select-placeholder {
+  color: #fff !important;
+}
+
+button.mat-raised-button {
+  background-color: rgba(220, 132, 29, 1);
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button.mat-raised-button:hover {
+  background-color: rgba(188, 112, 21, 1); /* Slightly darker shade */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.snack-bar-success {
+  background-color: rgba(51, 87, 247, 1);
+  color: white;
+}
+
+.snack-bar-error {
+  background-color: rgba(220, 132, 29, 1);
+  color: white;
+}
+
+.mat-icon {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.mat-card-title mat-icon {
+  margin-right: 10px;
+}
+
+.mat-button-center mat-icon {
+  margin-right: 5px;
+}

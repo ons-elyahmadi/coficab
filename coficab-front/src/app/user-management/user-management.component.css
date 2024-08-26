@@ -1,0 +1,86 @@
+.user-management-container {
+  padding: 80px;
+  color: white;
+  background: 
+    linear-gradient(
+      rgba(22, 17, 168, 0.6), 
+      rgba(51, 87, 247, 0.6)
+    ), 
+    url('/assets/logo/cof.jpg') no-repeat center center;/* Add your image URL here */
+  background-size: cover; /* Ensure the image covers the container */
+  position: relative; /* Ensure child elements are positioned relative to this container */
+}
+
+.mat-toolbar.mat-primary {
+  margin-bottom: 10px;
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+  color: #ffffff; /* White text */
+  
+  transition: box-shadow 0.3s ease-in-out;  
+  background: linear-gradient(170deg, rgba(220,132,29,0.8) 0%, rgba(22,17,168,0.8) 68%, rgba(51,87,247,0.8) 100%);/* Dark blue with slight transparency for better contrast */
+}
+
+.mat-card {
+  background: linear-gradient(170deg, rgba(220,132,29,0.8) 0%, rgba(22,17,168,0.8) 68%, rgba(51,87,247,0.8) 100%); /* Adjust opacity for gradient */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+  color: #ffffff; /* White text */
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: box-shadow 0.3s ease-in-out; /* Smooth shadow transition */
+}
+
+.mat-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Shadow effect on hover */
+}
+
+.error-card {
+  background-color: rgba(240, 158, 6, 0.9); /* Adjust opacity for better contrast */
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button.mat-raised-button {
+  border-radius: 8px; /* Rounded buttons */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+button.mat-raised-button:hover {
+  background-color: #003e70; /* Darker shade for hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 16px; /* Spacing between form fields */
+}
+
+.mat-form-field mat-label {
+  color: #ffffff; /* White label text */
+}
+
+.mat-form-field .mat-form-field-infix {
+  color: #ffffff; /* White input text */
+}
+
+.mat-form-field .mat-form-field-underline {
+  background-color: #ffffff; /* White underline */
+}
+
+.mat-list-item {
+  color: #ffffff; /* White text */
+  cursor: pointer; /* Pointer cursor for clickable items */
+}
+
+.mat-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+}
+
+.mat-icon {
+  color: #ffffff; /* White icons */
+}

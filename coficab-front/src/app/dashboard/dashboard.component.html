@@ -1,0 +1,74 @@
+<nav class="navbar">
+  <ul>
+    <li class="logo-item">
+      <img src="assets/logo/coficab.png" height="100" alt="COFICAB Logo" class="logo">
+    </li>
+    <li>
+      <a routerLink="/dashboard">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </li>
+    <li>
+      <a routerLink="/dashboard/send-mailtable">
+        <i class="fas fa-envelope"></i> Send Mail table
+      </a>
+    </li>
+    <li>
+      <a routerLink="/dashboard/tables">
+        <i class="fas fa-table"></i> Tables
+      </a>
+    </li>
+    <li>
+      <a routerLink="/dashboard/run-r">
+        <i class="fas fa-pencil-alt"></i> RUN SCRIPT
+      </a>
+    </li>
+    
+    <li>
+      <a routerLink="/dashboard/powerbi">
+        <i class="fas fa-chart-bar"></i> Power BI
+      </a>
+    </li>
+    <li>
+      <a routerLink="/dashboard/chat">
+        <i class="fas fa-comments"></i> Chat
+      </a>
+    </li>
+   
+    <li>
+      <a (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<router-outlet></router-outlet>
+
+<section   *ngIf="showVideo" class="elementor-section">
+  <div class="elementor-background-video-container">
+    <iframe class="elementor-background-video-embed" frameborder="0" allowfullscreen
+            title="Background Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            src="https://www.youtube.com/embed/4hi3MS1YLYI?controls=0&rel=0&playsinline=1&loop=1&autoplay=1&mute=1&playlist=4hi3MS1YLYI" 
+            style="width: 100%; height: 100%; margin: 0;"></iframe>
+  </div>
+  <div class="elementor-background-overlay"></div>
+  <div class="elementor-container">
+    <div class="elementor-column">
+      <div class="elementor-widget-wrap">
+        <div class="elementor-widget elementor-widget-image">
+          <img src="assets/logo/co.png" alt="COFICAB Logo" class="coficab-logo">
+        </div>
+        <div class="elementor-widget elementor-widget-heading">
+          <h2 class="elementor-heading-title">INNOVATION IN HIGH VOLTAGE CABLES</h2>
+        </div>
+        <div class="elementor-widget elementor-widget-spacer">
+          <div class="elementor-spacer-inner"></div>
+        </div>
+        <div class="elementor-widget elementor-widget-text-editor">
+          <p>Our latest innovation merges the unique benefits of a SiR insulated conductor, an EMC protective braid, and a flexible XLPO jacket.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
